@@ -5,7 +5,7 @@ import '../components/Post.css'; // Reuse some card styles
 const Alerts = () => {
   return (
     <div className="alerts-page">
-      <div className="header" style={{ padding: '1rem', borderBottom: '1px solid var(--divider)', backgroundColor: '#fff', position: 'sticky', top: 0, zIndex: 10 }}>
+      <div className="feed-header">
         <h2>Notifications</h2>
       </div>
       <div className="feed" style={{ padding: '1rem', display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>

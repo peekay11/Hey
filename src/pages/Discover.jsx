@@ -5,13 +5,14 @@ import Post from '../components/Post';
 const Discover = () => {
   return (
     <div className="discover-page">
-      <div className="search-bar" style={{ marginBottom: '1.5rem' }}>
-        <div style={{ position: 'relative' }}>
-          <span className="material-symbols-outlined" style={{ position: 'absolute', left: '15px', top: '12px', color: 'var(--text-muted)' }}>search</span>
+      <div className="feed-header" style={{ paddingBottom: '1rem' }}>
+        <div className="search-bar" style={{ margin: 0 }}>
+          <span className="material-symbols-outlined search-icon" style={{ position: 'absolute', left: '15px', top: '12px' }}>search</span>
           <input 
             type="text" 
             placeholder="Search Hey..." 
-            style={{ width: '100%', padding: '12px 15px 12px 45px', borderRadius: '25px', border: '1px solid var(--divider)', outline: 'none', fontSize: '1rem' }} 
+            className="search-input"
+            style={{ width: '100%', padding: '12px 15px 12px 45px' }} 
           />
         </div>
       </div>

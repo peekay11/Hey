@@ -8,7 +8,7 @@ const Saved = () => {
 
   return (
     <div className="saved-page">
-      <div className="header" style={{ padding: '1rem', borderBottom: '1px solid var(--divider)', backgroundColor: '#fff', position: 'sticky', top: 0, zIndex: 10, marginBottom: '1rem' }}>
+      <div className="feed-header" style={{ marginBottom: '1rem' }}>
         <h2>Saved Posts</h2>
       </div>
       
