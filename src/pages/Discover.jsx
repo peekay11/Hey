@@ -1,20 +1,13 @@
 import React from 'react';
 import { MOCK_TRENDING, MOCK_POSTS } from '../data/mockData';
 import Post from '../components/Post';
+import SearchBar from '../components/SearchBar';
 
 const Discover = () => {
   return (
     <div className="discover-page">
       <div className="feed-header" style={{ paddingBottom: '1rem' }}>
-        <div className="search-bar" style={{ margin: 0 }}>
-          <span className="material-symbols-outlined search-icon" style={{ position: 'absolute', left: '15px', top: '12px' }}>search</span>
-          <input 
-            type="text" 
-            placeholder="Search Hey..." 
-            className="search-input"
-            style={{ width: '100%', padding: '12px 15px 12px 45px' }} 
-          />
-        </div>
+        <SearchBar placeholder="Search Hey..." />
       </div>
 
       <div className="card" style={{ marginBottom: '1.5rem' }}>
