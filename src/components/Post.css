@@ -5,7 +5,7 @@
   padding: 1.5rem;
   background-color: var(--card-bg);
   border-radius: 16px;
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s;
 }
 
 .post:hover {
@@ -13,8 +13,7 @@
 }
 
 .post-boosted {
-  border: 1px solid rgba(255, 204, 0, 0.3);
-  background: linear-gradient(145deg, var(--card-bg) 0%, rgba(255, 204, 0, 0.03) 100%);
+  background: linear-gradient(145deg, #181600 0%, #111 100%);
 }
 
 .post-header {
@@ -34,7 +33,6 @@
   height: 44px;
   border-radius: 50%;
   object-fit: cover;
-  border: 1px solid var(--border-color);
   cursor: pointer;
   transition: transform 0.2s;
 }
@@ -85,7 +83,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  border: 1px solid var(--border-color);
+  background: #1a1a1a;
 }
 
 .badge-icon {
@@ -139,8 +137,8 @@
   width: 100%;
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid var(--border-color);
   cursor: pointer;
+  background-color: #1a1a1a;
 }
 
 .post-image {
@@ -166,19 +164,17 @@
   align-items: center;
   gap: 0.25rem;
   font-size: 0.8rem;
-  padding: 0.25rem 0.6rem;
-  border-radius: 8px;
-  border: 1px solid var(--border-color);
+  padding: 0.3rem 0.7rem;
+  border-radius: 12px;
   color: var(--text-muted);
   cursor: pointer;
-  background: rgba(255, 255, 255, 0.03);
+  background: #1a1a1a;
   transition: background 0.2s, color 0.2s;
 }
 
 .tag:hover {
-  background: rgba(255, 204, 0, 0.1);
+  background: rgba(255, 204, 0, 0.15);
   color: var(--primary-color);
-  border-color: var(--primary-color);
 }
 
 .tag-icon {

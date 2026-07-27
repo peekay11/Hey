@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 import Post from './components/Post';
 import Reply from './components/Reply';
+import SidebarLeft from './components/SidebarLeft';
+import SidebarRight from './components/SidebarRight';
+import MobileNav from './components/MobileNav';
+import { useIsMobile } from './hooks/useIsMobile';
 import './App.css';
 
 const MOCK_DATA = [
@@ -85,6 +89,7 @@ const MOCK_DATA = [
 ];
 
 function App() {
+  const isMobile = useIsMobile(900); // 900px breakpoint for layout changes
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [locationFilter, setLocationFilter] = useState('All');
@@ -99,40 +104,11 @@ function App() {
 
   return (
     <div className="app-container">
-      {/* Left Sidebar Navigation */}
-      <aside className="sidebar-left">
-        <h1 className="brand-logo">Hey</h1>
-        <div className="nav-links">
-          <div className="nav-item active">
-            <span className="material-symbols-outlined icon-filled">home</span>
-            <span>Home</span>
-          </div>
-          <div className="nav-item">
-            <span className="material-symbols-outlined">explore</span>
-            <span>Discover</span>
-          </div>
-          <div className="nav-item">
-            <span className="material-symbols-outlined">notifications</span>
-            <span>Alerts</span>
-          </div>
-          <div className="nav-item">
-            <span className="material-symbols-outlined">bookmark</span>
-            <span>Saved</span>
-          </div>
-          <div className="nav-item">
-            <span className="material-symbols-outlined">person</span>
-            <span>Profile</span>
-          </div>
-          <button className="btn-primary-compose">
-            <span className="material-symbols-outlined">edit_square</span>
-            Say Hey
-          </button>
-        </div>
-      </aside>
+      <SidebarLeft isMobile={isMobile} />
 
-      {/* Middle Scrollable Feed */}
       <main className="main-feed">
         <div className="feed-header">
+          {isMobile && <h1 className="mobile-brand">Hey</h1>}
           <div className="search-bar">
             <span className="material-symbols-outlined search-icon">search</span>
             <input 
@@ -154,16 +130,8 @@ function App() {
           {filteredPosts.map(post => (
             <div key={post.id} className="post-thread">
               <Post 
-                author={post.author}
-                text={post.text}
-                image={post.image}
-                location={post.location}
-                category={post.category}
-                timestamp={post.timestamp}
-                upvotes={post.upvotes}
+                {...post}
                 replyCount={post.replies.length}
-                status={post.status}
-                boosted={post.boosted}
               />
               
               {post.replies.length > 0 && (
@@ -178,12 +146,7 @@ function App() {
                     .map(reply => (
                     <Reply 
                       key={reply.id}
-                      author={reply.author}
-                      text={reply.text}
-                      taggedBusiness={reply.taggedBusiness}
-                      upvotes={reply.upvotes}
-                      isHelpful={reply.isHelpful}
-                      timestamp={reply.timestamp}
+                      {...reply}
                       isAuthor={false}
                     />
                   ))}
@@ -200,41 +163,15 @@ function App() {
         </div>
       </main>
 
-      {/* Right Sidebar Filters & Widgets */}
-      <aside className="sidebar-right">
-        <div className="filters-widget">
-          <h3>Filters</h3>
-          
-          <div className="filter-group">
-            <label>Location</label>
-            <select 
-              className="filter-select"
-              value={locationFilter}
-              onChange={(e) => setLocationFilter(e.target.value)}
-            >
-              <option value="All">All Locations</option>
-              <option value="Soweto">Soweto</option>
-              <option value="Braamfontein">Braamfontein</option>
-            </select>
-            <button className="btn-follow">+ Follow Location</button>
-          </div>
-          
-          <div className="filter-group">
-            <label>Category</label>
-            <select 
-              className="filter-select"
-              value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
-            >
-              <option value="All">All Categories</option>
-              <option value="Barber">Barber</option>
-              <option value="Photographer">Photographer</option>
-              <option value="Food">Food</option>
-            </select>
-            <button className="btn-follow">+ Follow Category</button>
-          </div>
-        </div>
-      </aside>
+      <SidebarRight 
+        isMobile={isMobile}
+        locationFilter={locationFilter}
+        setLocationFilter={setLocationFilter}
+        categoryFilter={categoryFilter}
+        setCategoryFilter={setCategoryFilter}
+      />
+
+      <MobileNav isMobile={isMobile} />
     </div>
   );
 }
