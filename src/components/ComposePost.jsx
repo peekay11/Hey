@@ -3,16 +3,16 @@ import { ApiService } from '../services/api';
 import { MOCK_USER } from '../data/mockData';
 
 const ComposePost = ({ onPostCreated, isModal = false }) => {
-  const [text, setText] = useState('');
+  const [text, setText] = useState('@Hey ');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async () => {
-    if (!text.trim()) return;
+    if (!text.trim() || text.trim() === '@Hey') return;
     
     setIsSubmitting(true);
     try {
       await ApiService.posts.createPost({ text });
-      setText('');
+      setText('@Hey ');
       if (onPostCreated) onPostCreated();
     } catch (err) {
       console.error("Failed to create post", err);
@@ -62,7 +62,7 @@ const ComposePost = ({ onPostCreated, isModal = false }) => {
           </div>
           <button 
             onClick={handleSubmit}
-            disabled={!text.trim() || isSubmitting}
+            disabled={text.trim() === '@Hey' || !text.trim() || isSubmitting}
             style={{
               backgroundColor: 'var(--primary-color)',
               color: '#fff',
@@ -71,8 +71,8 @@ const ComposePost = ({ onPostCreated, isModal = false }) => {
               borderRadius: 'var(--radius-pill)',
               fontWeight: 700,
               fontFamily: 'inherit',
-              cursor: (!text.trim() || isSubmitting) ? 'not-allowed' : 'pointer',
-              opacity: (!text.trim() || isSubmitting) ? 0.5 : 1
+              cursor: (text.trim() === '@Hey' || !text.trim() || isSubmitting) ? 'not-allowed' : 'pointer',
+              opacity: (text.trim() === '@Hey' || !text.trim() || isSubmitting) ? 0.5 : 1
             }}
           >
             {isSubmitting ? 'Posting...' : 'Post'}
