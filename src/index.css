@@ -1,19 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;500;700&display=swap');
 
 :root {
-  /* Colors - strictly Black, Yellow, White */
-  --bg-color: #000000;
-  --card-bg: #111111;
-  --card-hover: #161616;
+  /* Colors - Light Theme based on screenshot feel */
+  --bg-color: #f4f5f7; /* Very light gray/lavender tint to let white cards pop */
+  --card-bg: #ffffff;
+  --card-hover: #ffffff;
   
-  --text-main: #ffffff;
-  --text-muted: #999999;
+  --text-main: #111111;
+  --text-muted: #8e8e93;
+  --divider: #eaeaea;
   
-  --primary-color: #ffcc00; /* Yellow */
-  --primary-hover: #ffdb4d;
+  --primary-color: #ffcc00; /* Yellow accent (replacing the orange in screenshot) */
+  --primary-hover: #ffbb00;
   
   /* Shared values */
   --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+  --shadow-soft: 0 12px 24px -6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.02);
 }
 
 * {
@@ -53,7 +55,7 @@ a:hover {
   font-variation-settings: 'FILL' 1;
 }
 
-/* Base button styles for industry standard feel */
+/* Base button styles */
 button {
   font-family: var(--font-family);
   cursor: pointer;

@@ -37,7 +37,7 @@
 }
 
 .nav-item:hover {
-  background-color: var(--card-bg);
+  background-color: rgba(0, 0, 0, 0.05);
 }
 
 .nav-item:active {
@@ -61,19 +61,20 @@
   padding: 1rem;
   border-radius: 99px;
   background-color: var(--primary-color);
-  color: #000;
+  color: #fff;
   font-family: inherit;
   font-size: 1.15rem;
   font-weight: 700;
   border: none;
   cursor: pointer;
   transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s, background-color 0.2s;
+  box-shadow: 0 4px 14px rgba(255, 204, 0, 0.3);
 }
 
 .btn-primary-compose:hover {
   transform: scale(1.05);
   background-color: var(--primary-hover);
-  box-shadow: 0 4px 20px rgba(255, 204, 0, 0.2);
+  box-shadow: 0 6px 20px rgba(255, 204, 0, 0.4);
 }
 
 .btn-primary-compose:active {
