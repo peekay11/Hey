@@ -1,4 +1,5 @@
 import React from 'react';
+import { NavLink } from 'react-router-dom';
 import './SidebarLeft.css';
 
 const SidebarLeft = ({ isMobile }) => {
@@ -8,26 +9,26 @@ const SidebarLeft = ({ isMobile }) => {
     <aside className="sidebar-left">
       <h1 className="brand-logo">Hey</h1>
       <div className="nav-links">
-        <div className="nav-item active">
-          <span className="material-symbols-outlined icon-filled">home</span>
+        <NavLink to="/" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} end>
+          <span className="material-symbols-outlined">home</span>
           <span>Home</span>
-        </div>
-        <div className="nav-item">
+        </NavLink>
+        <NavLink to="/discover" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
           <span className="material-symbols-outlined">explore</span>
           <span>Discover</span>
-        </div>
-        <div className="nav-item">
+        </NavLink>
+        <NavLink to="/alerts" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
           <span className="material-symbols-outlined">notifications</span>
           <span>Alerts</span>
-        </div>
-        <div className="nav-item">
+        </NavLink>
+        <NavLink to="/saved" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
           <span className="material-symbols-outlined">bookmark</span>
           <span>Saved</span>
-        </div>
-        <div className="nav-item">
+        </NavLink>
+        <NavLink to="/profile" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
           <span className="material-symbols-outlined">person</span>
           <span>Profile</span>
-        </div>
+        </NavLink>
         <button className="btn-primary-compose">
           <span className="material-symbols-outlined">edit_square</span>
           Say Hey

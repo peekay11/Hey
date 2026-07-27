@@ -10,12 +10,13 @@
   --text-muted: #8e8e93;
   --divider: #eaeaea;
   
-  --primary-color: #ffcc00; /* Yellow accent (replacing the orange in screenshot) */
-  --primary-hover: #ffbb00;
+  --primary-color: #ff6b00; /* Vibrant Orange for high contrast */
+  --primary-hover: #e65c00;
+  --primary-light: rgba(255, 107, 0, 0.1);
   
   /* Shared values */
   --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --shadow-soft: 0 12px 24px -6px rgba(0, 0, 0, 0.08), 0 0 0 1px rgba(0, 0, 0, 0.02);
+  --shadow-soft: 0 8px 30px rgba(0, 0, 0, 0.08);
 }
 
 * {

@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Post from './components/Post';
 import Reply from './components/Reply';
+import { Routes, Route } from 'react-router-dom';
 import SidebarLeft from './components/SidebarLeft';
 import SidebarRight from './components/SidebarRight';
 import MobileNav from './components/MobileNav';
@@ -88,13 +89,86 @@ const MOCK_DATA = [
   }
 ];
 
+// Extracted Feed Component to keep App clean
+const HomeFeed = ({ search, setSearch, filteredPosts }) => {
+  const isMobile = useIsMobile(900);
+  return (
+    <main className="main-feed">
+      <div className="feed-header">
+        {isMobile && <h1 className="mobile-brand">Hey</h1>}
+        <div className="search-bar">
+          <span className="material-symbols-outlined search-icon">search</span>
+          <input 
+            type="text" 
+            placeholder="Search past posts/answers..." 
+            className="search-input"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+        <div className="feed-tabs">
+          <button className="tab active">Latest</button>
+          <button className="tab">Nearby</button>
+          <button className="tab">Following</button>
+        </div>
+      </div>
+
+      <div className="feed">
+        {filteredPosts.map(post => (
+          <div key={post.id} className="post-thread">
+            <Post 
+              {...post}
+              replyCount={post.replies.length}
+            />
+            
+            {post.replies.length > 0 && (
+              <div className="replies-container">
+                {[...post.replies]
+                  .sort((a, b) => {
+                    if (a.isHelpful && !b.isHelpful) return -1;
+                    if (!a.isHelpful && b.isHelpful) return 1;
+                    if (b.upvotes !== a.upvotes) return b.upvotes - a.upvotes;
+                    return 0;
+                  })
+                  .map(reply => (
+                  <Reply 
+                    key={reply.id}
+                    {...reply}
+                    isAuthor={false}
+                  />
+                ))}
+              </div>
+            )}
+          </div>
+        ))}
+
+        {filteredPosts.length === 0 && (
+          <div className="empty-state">
+            <p>No posts found matching your criteria.</p>
+          </div>
+        )}
+      </div>
+    </main>
+  );
+};
+
+const PlaceholderPage = ({ title }) => (
+  <main className="main-feed">
+    <div className="feed-header">
+      <h2>{title}</h2>
+    </div>
+    <div className="empty-state">
+      <p>{title} feature coming soon!</p>
+    </div>
+  </main>
+);
+
 function App() {
-  const isMobile = useIsMobile(900); // 900px breakpoint for layout changes
+  const isMobile = useIsMobile(900);
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [locationFilter, setLocationFilter] = useState('All');
 
-  // Filter posts based on search and filters
   const filteredPosts = MOCK_DATA.filter(post => {
     const matchSearch = post.text.toLowerCase().includes(search.toLowerCase());
     const matchCategory = categoryFilter === 'All' || post.category === categoryFilter;
@@ -106,62 +180,13 @@ function App() {
     <div className="app-container">
       <SidebarLeft isMobile={isMobile} />
 
-      <main className="main-feed">
-        <div className="feed-header">
-          {isMobile && <h1 className="mobile-brand">Hey</h1>}
-          <div className="search-bar">
-            <span className="material-symbols-outlined search-icon">search</span>
-            <input 
-              type="text" 
-              placeholder="Search past posts/answers..." 
-              className="search-input"
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-            />
-          </div>
-          <div className="feed-tabs">
-            <button className="tab active">Latest</button>
-            <button className="tab">Nearby</button>
-            <button className="tab">Following</button>
-          </div>
-        </div>
-
-        <div className="feed">
-          {filteredPosts.map(post => (
-            <div key={post.id} className="post-thread">
-              <Post 
-                {...post}
-                replyCount={post.replies.length}
-              />
-              
-              {post.replies.length > 0 && (
-                <div className="replies-container">
-                  {[...post.replies]
-                    .sort((a, b) => {
-                      if (a.isHelpful && !b.isHelpful) return -1;
-                      if (!a.isHelpful && b.isHelpful) return 1;
-                      if (b.upvotes !== a.upvotes) return b.upvotes - a.upvotes;
-                      return 0;
-                    })
-                    .map(reply => (
-                    <Reply 
-                      key={reply.id}
-                      {...reply}
-                      isAuthor={false}
-                    />
-                  ))}
-                </div>
-              )}
-            </div>
-          ))}
-
-          {filteredPosts.length === 0 && (
-            <div className="empty-state">
-              <p>No posts found matching your criteria.</p>
-            </div>
-          )}
-        </div>
-      </main>
+      <Routes>
+        <Route path="/" element={<HomeFeed search={search} setSearch={setSearch} filteredPosts={filteredPosts} />} />
+        <Route path="/discover" element={<PlaceholderPage title="Discover" />} />
+        <Route path="/alerts" element={<PlaceholderPage title="Alerts" />} />
+        <Route path="/saved" element={<PlaceholderPage title="Saved Posts" />} />
+        <Route path="/profile" element={<PlaceholderPage title="User Profile" />} />
+      </Routes>
 
       <SidebarRight 
         isMobile={isMobile}
