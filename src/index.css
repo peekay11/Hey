@@ -2,7 +2,7 @@
 
 :root {
   /* Colors - Light Theme based on screenshot feel */
-  --bg-color: #f4f5f7; /* Very light gray/lavender tint to let white cards pop */
+  --bg-color: #e5e7eb; /* Slightly darker gray to make white cards pop */
   --card-bg: #ffffff;
   --card-hover: #ffffff;
   
