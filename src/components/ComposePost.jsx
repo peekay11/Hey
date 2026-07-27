@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { ApiService } from '../services/api';
 import { MOCK_USER } from '../data/mockData';
 
-const ComposePost = ({ onPostCreated }) => {
+const ComposePost = ({ onPostCreated, isModal = false }) => {
   const [text, setText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -22,7 +22,18 @@ const ComposePost = ({ onPostCreated }) => {
   };
 
   return (
-    <div className="card" style={{ display: 'flex', gap: '1rem', padding: '1.25rem', marginBottom: '1rem', borderTop: 'none', borderRadius: '0 0 var(--radius-md) var(--radius-md)' }}>
+    <div 
+      className={isModal ? "" : "card"} 
+      style={{ 
+        display: 'flex', 
+        gap: '1rem', 
+        padding: '1.25rem', 
+        marginBottom: isModal ? '0' : '1rem', 
+        borderTop: 'none', 
+        borderRadius: isModal ? '0 0 var(--radius-lg) var(--radius-lg)' : '0 0 var(--radius-md) var(--radius-md)',
+        backgroundColor: isModal ? 'transparent' : 'var(--card-bg)'
+      }}
+    >
       <img src={MOCK_USER.avatar} alt="You" style={{ width: '48px', height: '48px', borderRadius: '50%' }} />
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <textarea 

@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './SidebarLeft.css';
 
-const SidebarLeft = ({ isMobile }) => {
+const SidebarLeft = ({ isMobile, onComposeClick }) => {
   if (isMobile) return null; // We will use a bottom nav for mobile instead
 
   return (
@@ -29,7 +29,7 @@ const SidebarLeft = ({ isMobile }) => {
           <span className="material-symbols-outlined">person</span>
           <span>Profile</span>
         </NavLink>
-        <button className="btn-primary-compose">
+        <button className="btn-primary-compose" onClick={onComposeClick}>
           <span className="material-symbols-outlined">edit_square</span>
           Say Hey
         </button>

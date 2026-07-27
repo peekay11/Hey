@@ -12,7 +12,7 @@ import Alerts from './pages/Alerts';
 import Saved from './pages/Saved';
 import Profile from './pages/Profile';
 import SearchBar from './components/SearchBar';
-import ComposePost from './components/ComposePost';
+import ComposeModal from './components/ComposeModal';
 import { useFeed } from './hooks/useApi';
 
 import { ApiService } from './services/api';
@@ -55,8 +55,6 @@ const HomeFeed = ({ search, setSearch, posts, loading, refetch }) => {
       </div>
 
       <div className="feed">
-        <ComposePost onPostCreated={refetch} />
-        
         {loading ? (
           <div className="empty-state">
             <div className="spinner"></div>
@@ -111,13 +109,14 @@ function App() {
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [locationFilter, setLocationFilter] = useState('All');
+  const [isComposeModalOpen, setIsComposeModalOpen] = useState(false);
 
   // Architecture ready for millions of posts: fetch from API instead of filtering locally
   const { posts, loading, refetch } = useFeed(search, categoryFilter, locationFilter);
 
   return (
     <div className="app-container">
-      <SidebarLeft isMobile={isMobile} />
+      <SidebarLeft isMobile={isMobile} onComposeClick={() => setIsComposeModalOpen(true)} />
 
       <Routes>
         <Route path="/" element={<HomeFeed search={search} setSearch={setSearch} posts={posts} loading={loading} refetch={refetch} />} />
@@ -135,7 +134,17 @@ function App() {
         setCategoryFilter={setCategoryFilter}
       />
 
-      <MobileNav isMobile={isMobile} />
+      <MobileNav isMobile={isMobile} onComposeClick={() => setIsComposeModalOpen(true)} />
+
+      {isComposeModalOpen && (
+        <ComposeModal 
+          onClose={() => setIsComposeModalOpen(false)} 
+          onPostCreated={() => {
+            setIsComposeModalOpen(false);
+            refetch();
+          }} 
+        />
+      )}
     </div>
   );
 }

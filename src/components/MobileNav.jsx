@@ -2,7 +2,7 @@ import React from 'react';
 import { NavLink } from 'react-router-dom';
 import './MobileNav.css';
 
-const MobileNav = ({ isMobile }) => {
+const MobileNav = ({ isMobile, onComposeClick }) => {
   if (!isMobile) return null;
 
   return (
@@ -14,7 +14,7 @@ const MobileNav = ({ isMobile }) => {
         <span className="material-symbols-outlined">explore</span>
       </NavLink>
       <div className="nav-item-compose">
-        <button className="btn-mobile-compose">
+        <button className="btn-mobile-compose" onClick={onComposeClick}>
           <span className="material-symbols-outlined">edit_square</span>
         </button>
       </div>
