@@ -10,9 +10,9 @@
   --text-muted: #8e8e93;
   --divider: #eaeaea;
   
-  --primary-color: #000000; /* No accent colors, strict monochrome */
-  --primary-hover: #333333;
-  --primary-light: rgba(0, 0, 0, 0.05);
+  --primary-color: #ff6b00; /* Vibrant Orange for high contrast */
+  --primary-hover: #e65c00;
+  --primary-light: rgba(255, 107, 0, 0.1);
   
   /* Shared values */
   --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;

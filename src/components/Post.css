@@ -236,6 +236,7 @@
   gap: 1.5rem;
   padding: 0.5rem 0;
   margin-bottom: 0.5rem;
+  position: relative;
 }
 
 .action-button-container {
@@ -278,11 +279,11 @@
   transform: scale(1.1);
 }
 
-.active-upvote {
+.active-action {
   color: var(--primary-color);
 }
 
-.active-upvote .material-symbols-outlined {
+.active-action .material-symbols-outlined {
   color: var(--primary-color);
   font-variation-settings: 'FILL' 1;
   transform: scale(1.15);

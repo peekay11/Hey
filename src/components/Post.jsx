@@ -23,7 +23,22 @@ const Post = ({
 }) => {
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [upvotes, setUpvotes] = useState(initialUpvotes);
-  const [showParticles, setShowParticles] = useState(false);
+  const [hasSaved, setHasSaved] = useState(false);
+  const [particles, setParticles] = useState([]); // Array of particle objects {id, icon, x, y}
+  
+  const triggerParticles = (iconType, count = 6) => {
+    const newParticles = [...Array(count)].map(() => ({
+      id: Math.random().toString(36).substring(7),
+      icon: iconType,
+      tx: (Math.random() - 0.5) * 80,
+      ty: -Math.random() * 80 - 20,
+      rot: (Math.random() - 0.5) * 90,
+      delay: Math.random() * 0.1
+    }));
+    
+    setParticles(newParticles);
+    setTimeout(() => setParticles([]), 1000);
+  };
 
   const handleUpvote = () => {
     playPopSound();
@@ -33,8 +48,17 @@ const Post = ({
     } else {
       setUpvotes(prev => prev + 1);
       setHasUpvoted(true);
-      setShowParticles(true);
-      setTimeout(() => setShowParticles(false), 1000); // Hide after animation
+      triggerParticles('favorite');
+    }
+  };
+
+  const handleSave = () => {
+    playPopSound();
+    if (hasSaved) {
+      setHasSaved(false);
+    } else {
+      setHasSaved(true);
+      triggerParticles('bookmark');
     }
   };
 
@@ -145,37 +169,51 @@ const Post = ({
       <div className="post-action-bar">
         <div className="action-button-container">
           <button 
-            className={`btn-action-icon ${hasUpvoted ? 'active-upvote' : ''}`}
+            className={`btn-action-icon ${hasUpvoted ? 'active-action' : ''}`}
             onClick={handleUpvote}
           >
             <span className="material-symbols-outlined">{hasUpvoted ? 'favorite' : 'favorite_border'}</span>
             <span>{upvotes}</span>
           </button>
-          
-          {showParticles && (
-            <div className="particle-container">
-              {[...Array(6)].map((_, i) => (
-                <span 
-                  key={i} 
-                  className="material-symbols-outlined particle icon-filled"
-                  style={{
-                    '--tx': `${(Math.random() - 0.5) * 80}px`,
-                    '--ty': `${-Math.random() * 80 - 20}px`,
-                    '--rot': `${(Math.random() - 0.5) * 90}deg`,
-                    animationDelay: `${Math.random() * 0.1}s`
-                  }}
-                >
-                  favorite
-                </span>
-              ))}
-            </div>
-          )}
         </div>
         
         <button className="btn-action-icon" onClick={onToggleReplies}>
           <span className="material-symbols-outlined">chat_bubble_outline</span>
           <span>{replyCount}</span>
         </button>
+
+        <button className="btn-action-icon">
+          <span className="material-symbols-outlined">send</span>
+        </button>
+
+        <div className="action-button-container" style={{ marginLeft: 'auto' }}>
+          <button 
+            className={`btn-action-icon ${hasSaved ? 'active-action' : ''}`}
+            onClick={handleSave}
+          >
+            <span className="material-symbols-outlined">{hasSaved ? 'bookmark' : 'bookmark_border'}</span>
+          </button>
+        </div>
+        
+        {/* Particle Overlay for the entire bar to share */}
+        {particles.length > 0 && (
+          <div className="particle-container" style={{ left: particles[0].icon === 'favorite' ? '15px' : 'calc(100% - 30px)' }}>
+            {particles.map((p) => (
+              <span 
+                key={p.id} 
+                className="material-symbols-outlined particle icon-filled"
+                style={{
+                  '--tx': `${p.tx}px`,
+                  '--ty': `${p.ty}px`,
+                  '--rot': `${p.rot}deg`,
+                  animationDelay: `${p.delay}s`
+                }}
+              >
+                {p.icon}
+              </span>
+            ))}
+          </div>
+        )}
       </div>
 
       {isExpanded && (
