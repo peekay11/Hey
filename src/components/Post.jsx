@@ -38,6 +38,7 @@ const Post = ({
       <div className="post-header">
         <div className="post-author-info">
           <span className="post-author">{author}</span>
+          <span className="brand-hey-tag">@Hey</span>
           <span className="post-timestamp">{timestamp} • {location}</span>
         </div>
         <button className="btn-icon-only">
