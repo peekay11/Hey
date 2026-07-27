@@ -1,8 +1,23 @@
+let audioCtx = null;
+
+const getAudioContext = () => {
+  if (!audioCtx) {
+    const AudioContext = window.AudioContext || window.webkitAudioContext;
+    if (AudioContext) {
+      audioCtx = new AudioContext();
+    }
+  }
+  if (audioCtx && audioCtx.state === 'suspended') {
+    audioCtx.resume();
+  }
+  return audioCtx;
+};
+
 const playTone = (freq1, freq2, type, vol, duration) => {
   try {
-    const AudioContext = window.AudioContext || window.webkitAudioContext;
-    if (!AudioContext) return;
-    const context = new AudioContext();
+    const context = getAudioContext();
+    if (!context) return;
+    
     const osc = context.createOscillator();
     const gain = context.createGain();
     
