@@ -37,6 +37,50 @@ export const ApiService = {
     getUserPosts: async (username) => {
       await delay(300);
       return MOCK_POSTS.filter(p => p.author === username || p.author === 'Paseka Dev');
+    },
+
+    // CREATE a new post
+    createPost: async (postData) => {
+      await delay(400);
+      const newPost = {
+        id: Date.now(),
+        type: 'text',
+        author: MOCK_USER.name,
+        text: postData.text,
+        location: 'Johannesburg',
+        category: 'Tech',
+        timestamp: 'Just now',
+        upvotes: 0,
+        reposts: 0,
+        status: 'Open',
+        boosted: false,
+        replies: []
+      };
+      // Mutate the mock array so it persists in session
+      MOCK_POSTS.unshift(newPost);
+      return newPost;
+    },
+
+    // DELETE a post
+    deletePost: async (postId) => {
+      await delay(300);
+      const index = MOCK_POSTS.findIndex(p => p.id === postId);
+      if (index !== -1) {
+        MOCK_POSTS.splice(index, 1);
+        return { success: true };
+      }
+      throw new Error("Post not found");
+    },
+
+    // UPDATE a post (like)
+    likePost: async (postId) => {
+      await delay(200);
+      const post = MOCK_POSTS.find(p => p.id === postId);
+      if (post) {
+        post.upvotes += 1; // Fake increment
+        return post;
+      }
+      throw new Error("Post not found");
     }
   },
 

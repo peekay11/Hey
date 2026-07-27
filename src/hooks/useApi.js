@@ -4,6 +4,9 @@ import { ApiService } from '../services/api';
 export const useFeed = (search, category, location) => {
   const [posts, setPosts] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [tick, setTick] = useState(0);
+
+  const refetch = () => setTick(t => t + 1);
 
   useEffect(() => {
     let isMounted = true;
@@ -22,9 +25,9 @@ export const useFeed = (search, category, location) => {
       });
 
     return () => { isMounted = false; };
-  }, [search, category, location]);
+  }, [search, category, location, tick]);
 
-  return { posts, loading };
+  return { posts, loading, refetch };
 };
 
 export const useAlerts = () => {

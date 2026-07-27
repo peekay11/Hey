@@ -12,10 +12,13 @@ import Alerts from './pages/Alerts';
 import Saved from './pages/Saved';
 import Profile from './pages/Profile';
 import SearchBar from './components/SearchBar';
+import ComposePost from './components/ComposePost';
 import { useFeed } from './hooks/useApi';
 
+import { ApiService } from './services/api';
+
 // Extracted Feed Component to keep App clean
-const HomeFeed = ({ search, setSearch, posts, loading }) => {
+const HomeFeed = ({ search, setSearch, posts, loading, refetch }) => {
   const isMobile = useIsMobile(900);
   const [expandedPosts, setExpandedPosts] = useState({});
 
@@ -24,6 +27,15 @@ const HomeFeed = ({ search, setSearch, posts, loading }) => {
       ...prev,
       [postId]: !prev[postId]
     }));
+  };
+
+  const handleDeletePost = async (postId) => {
+    try {
+      await ApiService.posts.deletePost(postId);
+      refetch();
+    } catch (err) {
+      console.error("Failed to delete post", err);
+    }
   };
 
   return (
@@ -43,6 +55,8 @@ const HomeFeed = ({ search, setSearch, posts, loading }) => {
       </div>
 
       <div className="feed">
+        <ComposePost onPostCreated={refetch} />
+        
         {loading ? (
           <div className="empty-state">
             <div className="spinner"></div>
@@ -62,6 +76,7 @@ const HomeFeed = ({ search, setSearch, posts, loading }) => {
                   replyCount={post.replies.length}
                   isExpanded={isExpanded}
                   onToggleReplies={() => togglePost(post.id)}
+                  onDelete={handleDeletePost}
                 />
                 
                 {isExpanded && post.replies.length > 0 && (
@@ -98,14 +113,14 @@ function App() {
   const [locationFilter, setLocationFilter] = useState('All');
 
   // Architecture ready for millions of posts: fetch from API instead of filtering locally
-  const { posts, loading } = useFeed(search, categoryFilter, locationFilter);
+  const { posts, loading, refetch } = useFeed(search, categoryFilter, locationFilter);
 
   return (
     <div className="app-container">
       <SidebarLeft isMobile={isMobile} />
 
       <Routes>
-        <Route path="/" element={<HomeFeed search={search} setSearch={setSearch} posts={posts} loading={loading} />} />
+        <Route path="/" element={<HomeFeed search={search} setSearch={setSearch} posts={posts} loading={loading} refetch={refetch} />} />
         <Route path="/discover" element={<main className="main-feed"><Discover /></main>} />
         <Route path="/alerts" element={<main className="main-feed"><Alerts /></main>} />
         <Route path="/saved" element={<main className="main-feed"><Saved /></main>} />

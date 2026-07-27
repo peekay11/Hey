@@ -4,6 +4,7 @@ import { playPopSound, playLikeSound, playRepostSound, playSaveSound } from '../
 import './Post.css';
 
 const Post = ({ 
+  id,
   type = 'text',
   author, 
   avatar, 
@@ -21,7 +22,8 @@ const Post = ({
   status, 
   boosted,
   isExpanded,
-  onToggleReplies
+  onToggleReplies,
+  onDelete
 }) => {
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [upvotes, setUpvotes] = useState(initialUpvotes);
@@ -171,6 +173,16 @@ const Post = ({
           <span className="post-author">{author}</span>
           <span className="post-timestamp">{timestamp} • {location}</span>
         </div>
+        {author === 'Paseka Dev' && (
+          <button 
+            onClick={() => onDelete && onDelete(id)}
+            className="btn-icon-only" 
+            style={{ color: '#f91880', marginLeft: 'auto' }}
+            title="Delete post"
+          >
+            <span className="material-symbols-outlined" style={{ fontSize: '1.2rem' }}>delete</span>
+          </button>
+        )}
       </div>
       
       <div className="post-content">
