@@ -3,21 +3,33 @@ import { ApiService } from '../services/api';
 import { MOCK_USER } from '../data/mockData';
 
 const ComposePost = ({ onPostCreated, isModal = false }) => {
-  const [text, setText] = useState('@Hey ');
+  const [userText, setUserText] = useState('');
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleSubmit = async () => {
-    if (!text.trim() || text.trim() === '@Hey') return;
+    if (!userText.trim()) return;
     
     setIsSubmitting(true);
     try {
-      await ApiService.posts.createPost({ text });
-      setText('@Hey ');
+      await ApiService.posts.createPost({ text: `@Hey ${userText.trim()}` });
+      setUserText('');
       if (onPostCreated) onPostCreated();
     } catch (err) {
       console.error("Failed to create post", err);
     } finally {
       setIsSubmitting(false);
+    }
+  };
+
+  const handleTextChange = (e) => {
+    const val = e.target.value;
+    if (val.startsWith('@Hey ')) {
+      setUserText(val.substring(5));
+    } else if (val.startsWith('@Hey')) {
+      setUserText(val.substring(4).trimStart());
+    } else {
+      // If they deleted the prefix or typed over it, capture their input and the prefix stays forced.
+      setUserText(val.replace(/^@?H?e?y?\s*/i, ''));
     }
   };
 
@@ -38,8 +50,8 @@ const ComposePost = ({ onPostCreated, isModal = false }) => {
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <textarea 
           placeholder="What's happening?"
-          value={text}
-          onChange={(e) => setText(e.target.value)}
+          value={`@Hey ${userText}`}
+          onChange={handleTextChange}
           style={{
             width: '100%',
             minHeight: '60px',
@@ -62,7 +74,7 @@ const ComposePost = ({ onPostCreated, isModal = false }) => {
           </div>
           <button 
             onClick={handleSubmit}
-            disabled={text.trim() === '@Hey' || !text.trim() || isSubmitting}
+            disabled={!userText.trim() || isSubmitting}
             style={{
               backgroundColor: 'var(--primary-color)',
               color: '#fff',
@@ -71,8 +83,8 @@ const ComposePost = ({ onPostCreated, isModal = false }) => {
               borderRadius: 'var(--radius-pill)',
               fontWeight: 700,
               fontFamily: 'inherit',
-              cursor: (text.trim() === '@Hey' || !text.trim() || isSubmitting) ? 'not-allowed' : 'pointer',
-              opacity: (text.trim() === '@Hey' || !text.trim() || isSubmitting) ? 0.5 : 1
+              cursor: (!userText.trim() || isSubmitting) ? 'not-allowed' : 'pointer',
+              opacity: (!userText.trim() || isSubmitting) ? 0.5 : 1
             }}
           >
             {isSubmitting ? 'Posting...' : 'Post'}
