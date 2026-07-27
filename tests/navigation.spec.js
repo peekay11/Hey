@@ -18,7 +18,7 @@ test.describe('Hey Navigation Flow', () => {
     // 2. Navigate to Alerts
     await page.click('a[href="/alerts"]');
     await expect(page).toHaveURL(/.*alerts/);
-    await expect(page.locator('text=Notifications')).toBeVisible();
+    await expect(page.getByRole('heading', { name: 'Notifications' })).toBeVisible();
 
     // 3. Navigate to Saved
     await page.click('a[href="/saved"]');
