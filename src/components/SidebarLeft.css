@@ -33,16 +33,14 @@
   cursor: pointer;
   padding: 0.5rem;
   border-radius: 99px;
-  transition: background-color 0.2s, transform 0.2s;
+
 }
 
 .nav-item:hover {
   background-color: rgba(0, 0, 0, 0.05);
 }
 
-.nav-item:active {
-  transform: scale(0.95);
-}
+
 
 .nav-item.active {
   font-weight: 700;
@@ -67,16 +65,14 @@
   font-weight: 700;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s, background-color 0.2s;
+
   box-shadow: 0 4px 14px rgba(255, 204, 0, 0.3);
 }
 
 .btn-primary-compose:hover {
-  transform: scale(1.05);
+
   background-color: var(--primary-hover);
   box-shadow: 0 6px 20px rgba(255, 204, 0, 0.4);
 }
 
-.btn-primary-compose:active {
-  transform: scale(0.95);
-}
+

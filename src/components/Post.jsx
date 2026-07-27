@@ -126,9 +126,6 @@ const Post = ({
           <span className="post-author">{author}</span>
           <span className="post-timestamp">{timestamp} • {location}</span>
         </div>
-        <button className="btn-icon-only">
-          <span className="material-symbols-outlined">more_horiz</span>
-        </button>
       </div>
       
       <div className="post-content">
@@ -154,10 +151,6 @@ const Post = ({
         <button className="btn-action-icon" onClick={onToggleReplies}>
           <span className="material-symbols-outlined">chat_bubble_outline</span>
           <span>{replyCount}</span>
-        </button>
-        
-        <button className="btn-action-icon">
-          <span className="material-symbols-outlined">send</span>
         </button>
       </div>
 

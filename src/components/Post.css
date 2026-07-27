@@ -7,7 +7,7 @@
   padding: 1.5rem 1.5rem 0 1.5rem;
   box-shadow: var(--shadow-soft);
   margin-top: 15px; /* space for floating avatar */
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
+
 }
 
 .post-avatar-badge {
@@ -28,11 +28,11 @@
   object-fit: cover;
   border: 2px solid var(--primary-color);
   cursor: pointer;
-  transition: transform 0.2s;
+
 }
 
 .avatar-floating:hover {
-  transform: scale(1.05);
+
 }
 
 .post-header {
@@ -78,7 +78,7 @@
   border-radius: 50%;
   width: 32px;
   height: 32px;
-  transition: background-color 0.2s, color 0.2s;
+
 }
 
 .btn-icon-only:hover {
@@ -170,7 +170,7 @@
   font-weight: 500;
   color: var(--text-main);
   cursor: pointer;
-  transition: border-color 0.2s, background-color 0.2s;
+
   overflow: hidden;
 }
 
@@ -192,7 +192,7 @@
   height: 100%;
   background-color: var(--primary-light);
   z-index: 1;
-  transition: width 0.5s ease-out;
+
 }
 
 .poll-option-text, .poll-option-percent {
@@ -249,21 +249,19 @@
   font-size: 0.95rem;
   font-family: inherit;
   font-weight: 600;
-  transition: transform 0.2s, color 0.2s;
+
 }
 
 .btn-action-icon:hover {
   color: var(--primary-color);
 }
 
-.btn-action-icon:active {
-  transform: scale(0.9);
-}
+
 
 .btn-action-icon .material-symbols-outlined {
   font-size: 1.4rem;
   color: var(--text-main);
-  transition: color 0.2s;
+
 }
 
 .btn-action-icon:hover .material-symbols-outlined {
@@ -311,7 +309,7 @@
   color: #fff;
   border: none;
   cursor: pointer;
-  transition: transform 0.2s, background-color 0.2s;
+
 }
 
 .btn-submit-arrow .material-symbols-outlined {
@@ -319,5 +317,5 @@
 }
 
 .btn-submit-arrow:hover {
-  transform: scale(1.1);
+
 }

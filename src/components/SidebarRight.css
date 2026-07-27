@@ -54,7 +54,7 @@
   font-weight: 500;
   width: 100%;
   cursor: pointer;
-  transition: background-color 0.2s, border-color 0.2s;
+
 }
 
 .filter-select:hover {
@@ -72,7 +72,7 @@
   position: absolute;
   right: 1rem;
   top: 50%;
-  transform: translateY(-50%);
+
   color: var(--text-muted);
   pointer-events: none;
 }
@@ -87,7 +87,7 @@
   font-weight: 600;
   cursor: pointer;
   text-align: left;
-  transition: opacity 0.2s;
+
 }
 
 .btn-follow:hover {

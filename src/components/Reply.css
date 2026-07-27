@@ -7,7 +7,7 @@
   padding: 1.25rem 1.25rem 1rem 1.25rem;
   box-shadow: var(--shadow-soft);
   margin-top: 15px; /* space for floating avatar */
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
+
   border: 1px solid rgba(0, 0, 0, 0.03);
 }
 
@@ -89,7 +89,7 @@
   font-size: 0.9rem;
   font-family: inherit;
   font-weight: 600;
-  transition: color 0.2s;
+
 }
 
 .btn-reply-action:hover {

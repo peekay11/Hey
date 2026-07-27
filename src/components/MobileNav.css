@@ -23,13 +23,11 @@
   width: 50px;
   height: 50px;
   border-radius: 50%;
-  transition: color 0.2s, background-color 0.2s;
+
   cursor: pointer;
 }
 
-.mobile-bottom-nav .nav-item:active {
-  background-color: rgba(0, 0, 0, 0.05);
-}
+
 
 .mobile-bottom-nav .nav-item.active {
   color: var(--text-main);
@@ -58,13 +56,11 @@
   justify-content: center;
   box-shadow: 0 4px 15px rgba(255, 204, 0, 0.3);
   cursor: pointer;
-  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+
 }
 
 .btn-mobile-compose .material-symbols-outlined {
   font-size: 2rem;
 }
 
-.btn-mobile-compose:active {
-  transform: scale(0.9);
-}
+
