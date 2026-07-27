@@ -110,25 +110,37 @@ function App() {
             value={search}
             onChange={(e) => setSearch(e.target.value)}
           />
-          <select 
-            className="filter-select"
-            value={locationFilter}
-            onChange={(e) => setLocationFilter(e.target.value)}
-          >
-            <option value="All">All Locations</option>
-            <option value="Soweto">Soweto</option>
-            <option value="Braamfontein">Braamfontein</option>
-          </select>
-          <select 
-            className="filter-select"
-            value={categoryFilter}
-            onChange={(e) => setCategoryFilter(e.target.value)}
-          >
-            <option value="All">All Categories</option>
-            <option value="Barber">Barber</option>
-            <option value="Photographer">Photographer</option>
-            <option value="Food">Food</option>
-          </select>
+          <div className="filter-group">
+            <select 
+              className="filter-select"
+              value={locationFilter}
+              onChange={(e) => setLocationFilter(e.target.value)}
+            >
+              <option value="All">All Locations</option>
+              <option value="Soweto">Soweto</option>
+              <option value="Braamfontein">Braamfontein</option>
+            </select>
+            <button className="btn-follow">Follow</button>
+          </div>
+          <div className="filter-group">
+            <select 
+              className="filter-select"
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+            >
+              <option value="All">All Categories</option>
+              <option value="Barber">Barber</option>
+              <option value="Photographer">Photographer</option>
+              <option value="Food">Food</option>
+            </select>
+            <button className="btn-follow">Follow</button>
+          </div>
+        </div>
+
+        <div className="feed-tabs">
+          <button className="tab active">Latest</button>
+          <button className="tab">Nearby</button>
+          <button className="tab">Following</button>
         </div>
 
         <div className="feed">
