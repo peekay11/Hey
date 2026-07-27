@@ -238,6 +238,11 @@
   margin-bottom: 0.5rem;
 }
 
+.action-button-container {
+  position: relative;
+  display: inline-block;
+}
+
 .btn-action-icon {
   background: transparent;
   border: none;
@@ -249,23 +254,28 @@
   font-size: 0.95rem;
   font-family: inherit;
   font-weight: 600;
-
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), color 0.2s;
+  position: relative;
+  z-index: 2;
 }
 
 .btn-action-icon:hover {
-  color: var(--primary-color);
+  color: var(--primary-hover);
 }
 
-
+.btn-action-icon:active {
+  transform: scale(0.85);
+}
 
 .btn-action-icon .material-symbols-outlined {
   font-size: 1.4rem;
   color: var(--text-main);
-
+  transition: color 0.2s, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 .btn-action-icon:hover .material-symbols-outlined {
-  color: var(--primary-color);
+  color: var(--primary-hover);
+  transform: scale(1.1);
 }
 
 .active-upvote {
@@ -275,6 +285,42 @@
 .active-upvote .material-symbols-outlined {
   color: var(--primary-color);
   font-variation-settings: 'FILL' 1;
+  transform: scale(1.15);
+  animation: popIcon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+@keyframes popIcon {
+  0% { transform: scale(1); }
+  50% { transform: scale(1.3); }
+  100% { transform: scale(1.15); }
+}
+
+/* Particle Animation styles */
+.particle-container {
+  position: absolute;
+  top: 50%;
+  left: 15px; /* center of the icon roughly */
+  pointer-events: none;
+  z-index: 1;
+}
+
+.particle {
+  position: absolute;
+  font-size: 14px;
+  opacity: 0;
+  color: var(--primary-color);
+  animation: floatUp 0.8s ease-out forwards;
+}
+
+@keyframes floatUp {
+  0% {
+    transform: translate(0, 0) scale(0.5) rotate(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(var(--rot));
+    opacity: 0;
+  }
 }
 
 .post-reply-input {
@@ -292,6 +338,7 @@
   font-size: 0.95rem;
   font-family: inherit;
   color: var(--text-main);
+  transition: background-color 0.2s;
 }
 
 .post-reply-input input::placeholder {
@@ -309,7 +356,7 @@
   color: #fff;
   border: none;
   cursor: pointer;
-
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.2s;
 }
 
 .btn-submit-arrow .material-symbols-outlined {
@@ -317,5 +364,8 @@
 }
 
 .btn-submit-arrow:hover {
-
+  transform: scale(1.15);
+}
+.btn-submit-arrow:active {
+  transform: scale(0.9);
 }
