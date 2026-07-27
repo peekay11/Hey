@@ -235,3 +235,41 @@
   flex-direction: column;
   border-top: 1px solid var(--border-color);
 }
+
+.brand-logo {
+  font-size: 2.5rem;
+  font-weight: 900;
+  color: var(--primary-color);
+  margin-bottom: 2.5rem;
+  text-align: left;
+  letter-spacing: -1px;
+}
+
+.btn-primary-compose {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 1rem;
+  border-radius: 99px;
+  background-color: var(--primary-color);
+  color: #000;
+  font-family: inherit;
+  font-size: 1.1rem;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.2s;
+  box-shadow: 0 4px 14px rgba(255, 204, 0, 0.3);
+}
+
+.btn-primary-compose:hover {
+  transform: scale(1.05);
+  box-shadow: 0 6px 20px rgba(255, 204, 0, 0.4);
+}
+
+.btn-primary-compose:active {
+  transform: scale(0.95);
+}
+

@@ -101,7 +101,7 @@ function App() {
     <div className="app-container">
       {/* Left Sidebar Navigation */}
       <aside className="sidebar-left">
-        <h1>Hey</h1>
+        <h1 className="brand-logo">Hey</h1>
         <div className="nav-links">
           <div className="nav-item active">
             <span className="material-symbols-outlined icon-filled">home</span>
@@ -116,13 +116,17 @@ function App() {
             <span>Alerts</span>
           </div>
           <div className="nav-item">
+            <span className="material-symbols-outlined">bookmark</span>
+            <span>Saved</span>
+          </div>
+          <div className="nav-item">
             <span className="material-symbols-outlined">person</span>
             <span>Profile</span>
           </div>
-          <div className="nav-item">
-            <span className="material-symbols-outlined">add_circle</span>
-            <span>Post</span>
-          </div>
+          <button className="btn-primary-compose">
+            <span className="material-symbols-outlined">edit_square</span>
+            Say Hey
+          </button>
         </div>
       </aside>
 
