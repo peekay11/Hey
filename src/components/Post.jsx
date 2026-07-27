@@ -13,7 +13,9 @@ const Post = ({
   upvotes: initialUpvotes, 
   replyCount, 
   status, 
-  boosted 
+  boosted,
+  isExpanded,
+  onToggleReplies
 }) => {
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [upvotes, setUpvotes] = useState(initialUpvotes);
@@ -74,16 +76,33 @@ const Post = ({
         {boosted && <span className="tag tag-boosted">Boosted</span>}
       </div>
 
-      <div className="post-reply-input">
-        <input type="text" placeholder="Write a reply..." />
+      <div className="post-action-bar">
         <button 
-          className={`btn-submit-arrow ${hasUpvoted ? 'active-upvote' : ''}`}
+          className={`btn-action-icon ${hasUpvoted ? 'active-upvote' : ''}`}
           onClick={handleUpvote}
-          title="Upvote Post"
         >
-          <span className="material-symbols-outlined">arrow_upward</span>
+          <span className="material-symbols-outlined">{hasUpvoted ? 'favorite' : 'favorite_border'}</span>
+          <span>{upvotes}</span>
+        </button>
+        
+        <button className="btn-action-icon" onClick={onToggleReplies}>
+          <span className="material-symbols-outlined">chat_bubble_outline</span>
+          <span>{replyCount}</span>
+        </button>
+        
+        <button className="btn-action-icon">
+          <span className="material-symbols-outlined">send</span>
         </button>
       </div>
+
+      {isExpanded && (
+        <div className="post-reply-input">
+          <input type="text" placeholder="Write a reply..." />
+          <button className="btn-submit-arrow">
+            <span className="material-symbols-outlined">arrow_upward</span>
+          </button>
+        </div>
+      )}
     </div>
   );
 };

@@ -92,6 +92,15 @@ const MOCK_DATA = [
 // Extracted Feed Component to keep App clean
 const HomeFeed = ({ search, setSearch, filteredPosts }) => {
   const isMobile = useIsMobile(900);
+  const [expandedPosts, setExpandedPosts] = useState({});
+
+  const togglePost = (postId) => {
+    setExpandedPosts(prev => ({
+      ...prev,
+      [postId]: !prev[postId]
+    }));
+  };
+
   return (
     <main className="main-feed">
       <div className="feed-header">
@@ -114,33 +123,38 @@ const HomeFeed = ({ search, setSearch, filteredPosts }) => {
       </div>
 
       <div className="feed">
-        {filteredPosts.map(post => (
-          <div key={post.id} className="post-thread">
-            <Post 
-              {...post}
-              replyCount={post.replies.length}
-            />
-            
-            {post.replies.length > 0 && (
-              <div className="replies-container">
-                {[...post.replies]
-                  .sort((a, b) => {
-                    if (a.isHelpful && !b.isHelpful) return -1;
-                    if (!a.isHelpful && b.isHelpful) return 1;
-                    if (b.upvotes !== a.upvotes) return b.upvotes - a.upvotes;
-                    return 0;
-                  })
-                  .map(reply => (
-                  <Reply 
-                    key={reply.id}
-                    {...reply}
-                    isAuthor={false}
-                  />
-                ))}
-              </div>
-            )}
-          </div>
-        ))}
+        {filteredPosts.map(post => {
+          const isExpanded = !!expandedPosts[post.id];
+          return (
+            <div key={post.id} className="post-thread">
+              <Post 
+                {...post}
+                replyCount={post.replies.length}
+                isExpanded={isExpanded}
+                onToggleReplies={() => togglePost(post.id)}
+              />
+              
+              {isExpanded && post.replies.length > 0 && (
+                <div className="replies-container">
+                  {[...post.replies]
+                    .sort((a, b) => {
+                      if (a.isHelpful && !b.isHelpful) return -1;
+                      if (!a.isHelpful && b.isHelpful) return 1;
+                      if (b.upvotes !== a.upvotes) return b.upvotes - a.upvotes;
+                      return 0;
+                    })
+                    .map(reply => (
+                    <Reply 
+                      key={reply.id}
+                      {...reply}
+                      isAuthor={false}
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          );
+        })}
 
         {filteredPosts.length === 0 && (
           <div className="empty-state">
