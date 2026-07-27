@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { playPopSound } from '../utils/sound';
+import Reply from './Reply';
+import { playPopSound, playLikeSound, playRepostSound, playSaveSound } from '../utils/sound';
 import './Post.css';
 
 const Post = ({ 
@@ -27,27 +28,27 @@ const Post = ({
   const [hasSaved, setHasSaved] = useState(false);
   const [particles, setParticles] = useState([]); // Array of particle objects {id, icon, x, y}
   
-  const triggerParticles = (iconType, color, count = 6) => {
+  const triggerParticles = (iconType, color, count = 8) => {
     const newParticles = [...Array(count)].map(() => ({
       id: Math.random().toString(36).substring(7),
       icon: iconType,
       color: color,
-      tx: (Math.random() - 0.5) * 80,
-      ty: -Math.random() * 80 - 20,
-      rot: (Math.random() - 0.5) * 90,
+      tx: (Math.random() - 0.5) * 120, // wider spread
+      ty: -Math.random() * 120 - 40,   // float higher
+      rot: (Math.random() - 0.5) * 120,
       delay: Math.random() * 0.1
     }));
     
     setParticles(newParticles);
-    setTimeout(() => setParticles([]), 1000);
+    setTimeout(() => setParticles([]), 1200);
   };
 
   const handleUpvote = () => {
-    playPopSound();
     if (hasUpvoted) {
       setUpvotes(prev => prev - 1);
       setHasUpvoted(false);
     } else {
+      playLikeSound();
       setUpvotes(prev => prev + 1);
       setHasUpvoted(true);
       triggerParticles('favorite', '#f91880');
@@ -58,11 +59,11 @@ const Post = ({
   const [reposts, setReposts] = useState(initialReposts || 0);
 
   const handleRepost = () => {
-    playPopSound();
     if (hasReposted) {
       setReposts(prev => prev - 1);
       setHasReposted(false);
     } else {
+      playRepostSound();
       setReposts(prev => prev + 1);
       setHasReposted(true);
       triggerParticles('repeat', '#00ba7c');
@@ -70,10 +71,10 @@ const Post = ({
   };
 
   const handleSave = () => {
-    playPopSound();
     if (hasSaved) {
       setHasSaved(false);
     } else {
+      playSaveSound();
       setHasSaved(true);
       triggerParticles('bookmark', '#ffd400');
     }

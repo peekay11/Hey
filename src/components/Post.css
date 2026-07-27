@@ -315,26 +315,27 @@
 .particle-container {
   position: absolute;
   top: 50%;
-  left: 15px; /* center of the icon roughly */
   pointer-events: none;
-  z-index: 1;
+  z-index: 9999; /* Ensure it floats above absolutely everything */
 }
 
 .particle {
   position: absolute;
-  font-size: 14px;
+  font-size: 16px;
   opacity: 0;
-  color: var(--primary-color);
-  animation: floatUp 0.8s ease-out forwards;
+  animation: floatUp 1.2s cubic-bezier(0.215, 0.61, 0.355, 1) forwards;
 }
 
 @keyframes floatUp {
   0% {
-    transform: translate(0, 0) scale(0.5) rotate(0deg);
+    transform: translate(0, 0) scale(0.2) rotate(0deg);
+    opacity: 1;
+  }
+  50% {
     opacity: 1;
   }
   100% {
-    transform: translate(var(--tx), var(--ty)) scale(1.5) rotate(var(--rot));
+    transform: translate(var(--tx), var(--ty)) scale(2.5) rotate(var(--rot));
     opacity: 0;
   }
 }

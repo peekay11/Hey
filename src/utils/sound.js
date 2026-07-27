@@ -1,30 +1,33 @@
-// A simple utility to play a soft, premium "pop" sound using the Web Audio API
-export const playPopSound = () => {
+const playTone = (freq1, freq2, type, vol, duration) => {
   try {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     if (!AudioContext) return;
-    
     const context = new AudioContext();
-    const oscillator = context.createOscillator();
-    const gainNode = context.createGain();
+    const osc = context.createOscillator();
+    const gain = context.createGain();
     
-    oscillator.type = 'sine';
+    osc.type = type;
+    osc.frequency.setValueAtTime(freq1, context.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(freq2, context.currentTime + duration * 0.5);
     
-    // Sweep frequency from 600Hz down to 200Hz very quickly
-    oscillator.frequency.setValueAtTime(600, context.currentTime);
-    oscillator.frequency.exponentialRampToValueAtTime(200, context.currentTime + 0.05);
+    gain.gain.setValueAtTime(0, context.currentTime);
+    gain.gain.linearRampToValueAtTime(vol, context.currentTime + 0.01);
+    gain.gain.exponentialRampToValueAtTime(0.001, context.currentTime + duration);
     
-    // Envelope for a quick percussive pop
-    gainNode.gain.setValueAtTime(0, context.currentTime);
-    gainNode.gain.linearRampToValueAtTime(0.3, context.currentTime + 0.01);
-    gainNode.gain.exponentialRampToValueAtTime(0.001, context.currentTime + 0.1);
+    osc.connect(gain);
+    gain.connect(context.destination);
     
-    oscillator.connect(gainNode);
-    gainNode.connect(context.destination);
-    
-    oscillator.start();
-    oscillator.stop(context.currentTime + 0.1);
+    osc.start();
+    osc.stop(context.currentTime + duration);
   } catch (e) {
     console.error('Audio playback failed', e);
   }
 };
+
+export const playPopSound = () => playTone(600, 200, 'sine', 0.2, 0.1);
+export const playLikeSound = () => playTone(800, 1200, 'sine', 0.15, 0.08);
+export const playRepostSound = () => {
+  playTone(400, 800, 'triangle', 0.1, 0.05);
+  setTimeout(() => playTone(600, 1000, 'triangle', 0.1, 0.05), 60);
+};
+export const playSaveSound = () => playTone(1200, 300, 'sine', 0.15, 0.1);
