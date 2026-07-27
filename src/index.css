@@ -1,15 +1,17 @@
 :root {
-  --primary-color: #6366f1; /* Indigo */
-  --primary-hover: #4f46e5;
-  --bg-color: #0f172a; /* Slate 900 */
-  --card-bg: #1e293b; /* Slate 800 */
-  --card-hover: #334155;
-  --text-main: #f8fafc; /* Slate 50 */
-  --text-muted: #94a3b8; /* Slate 400 */
-  --accent-green: #10b981;
-  --accent-yellow: #f59e0b;
-  --border-color: #334155;
+  /* Colors */
+  --bg-color: #000000;
+  --card-bg: #0a0a0a;
+  --card-hover: #111111;
+  --border-color: #222222;
   
+  --text-main: #ffffff;
+  --text-muted: #888888;
+  
+  --primary-color: #ffcc00; /* Yellow */
+  --primary-hover: #ffdb4d;
+  
+  /* Shared values */
   --font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
@@ -35,4 +37,16 @@ a {
 
 a:hover {
   color: var(--primary-hover);
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 400,
+  'GRAD' 0,
+  'opsz' 24;
+}
+
+.icon-filled {
+  font-variation-settings: 'FILL' 1;
 }
