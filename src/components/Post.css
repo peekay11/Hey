@@ -55,10 +55,10 @@
   color: var(--text-main);
 }
 
-.brand-hey-tag {
+.brand-hey-text {
   font-weight: 900;
   color: var(--primary-color);
-  font-size: 0.95rem;
+  font-size: 1.05rem;
   letter-spacing: -0.5px;
 }
 

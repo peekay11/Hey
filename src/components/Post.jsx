@@ -29,6 +29,19 @@ const Post = ({
     }
   };
 
+  const renderText = (content) => {
+    // If the text starts with "@Hey", wrap the "@Hey" part in a branded span
+    if (content.startsWith('@Hey')) {
+      return (
+        <>
+          <span className="brand-hey-text">@Hey</span>
+          {content.substring(4)}
+        </>
+      );
+    }
+    return content;
+  };
+
   return (
     <div className={`card post ${boosted ? 'post-boosted' : ''}`}>
       <div className="post-avatar-badge">
@@ -38,7 +51,6 @@ const Post = ({
       <div className="post-header">
         <div className="post-author-info">
           <span className="post-author">{author}</span>
-          <span className="brand-hey-tag">@Hey</span>
           <span className="post-timestamp">{timestamp} • {location}</span>
         </div>
         <button className="btn-icon-only">
@@ -47,7 +59,7 @@ const Post = ({
       </div>
       
       <div className="post-content">
-        <p className="post-text">{text}</p>
+        <p className="post-text">{renderText(text)}</p>
         {image && (
           <div className="post-image-container">
             <img src={image} alt="Post attachment" className="post-image" />

@@ -12,7 +12,7 @@ const MOCK_DATA = [
   {
     id: 1,
     author: 'Thabo_M',
-    text: 'Hey, any good barber in Soweto? Need a fresh fade for the weekend.',
+    text: '@Hey, any good barber in Soweto? Need a fresh fade for the weekend.',
     image: null,
     location: 'Soweto',
     category: 'Barber',
@@ -44,7 +44,7 @@ const MOCK_DATA = [
   {
     id: 2,
     author: 'Nandi_K',
-    text: 'Hey, looking for a reliable photographer for a birthday party in Braam. Recommendations?',
+    text: '@Hey, looking for a reliable photographer for a birthday party in Braam. Recommendations?',
     image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     location: 'Braamfontein',
     category: 'Photographer',
@@ -67,7 +67,7 @@ const MOCK_DATA = [
   {
     id: 3,
     author: 'Kagiso_J',
-    text: 'Hey, where can I get the best wings around here? 🍗',
+    text: '@Hey, where can I get the best wings around here? 🍗',
     image: 'https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     location: 'Soweto',
     category: 'Food',
