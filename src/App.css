@@ -11,42 +11,53 @@
   font-size: 1.8rem;
   font-weight: 900;
   color: var(--primary-color);
-  margin-bottom: 1rem;
+  margin-bottom: var(--space-md);
   letter-spacing: -1px;
 }
 
 /* Middle Feed */
 .main-feed {
   flex: 1;
-  max-width: 650px;
+  max-width: 600px; /* Standardize width */
   min-height: 100vh;
   padding: 0;
+  border-left: 1px solid var(--divider);
+  border-right: 1px solid var(--divider);
 }
 
 /* Search bar header area */
 .feed-header {
   position: sticky;
   top: 0;
-  background-color: rgba(229, 231, 235, 0.85); /* Matches new #e5e7eb --bg-color */
+  background-color: rgba(247, 249, 250, 0.85); /* Matches new --bg-color */
   backdrop-filter: blur(12px);
   z-index: 10;
-  padding: 1.5rem 1rem 0 1rem;
+  padding: var(--space-md) var(--space-md) 0 var(--space-md);
 }
 
 .search-bar {
   display: flex;
   background-color: var(--card-bg);
-  border-radius: 99px;
+  border-radius: var(--radius-pill);
   align-items: center;
-  padding: 0 1.5rem;
-  margin-bottom: 1.5rem;
+  padding: 0 var(--space-lg);
+  margin-bottom: var(--space-md);
   height: 48px;
-  box-shadow: var(--shadow-soft);
+  border: 1px solid var(--divider);
+  box-shadow: none;
+  transition: var(--transition-smooth);
+}
 
+.feed {
+  padding: var(--space-md);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
 }
 
 .search-bar:focus-within {
-  box-shadow: 0 14px 28px rgba(0, 0, 0, 0.12), 0 0 0 1px rgba(0, 0, 0, 0.04);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08), 0 0 0 1px var(--primary-color);
+  border-color: var(--primary-color);
 }
 
 .search-icon {
@@ -100,19 +111,32 @@
 .tab.active::after {
   content: '';
   position: absolute;
-  bottom: -1px;
+  bottom: 0;
   left: 0;
-  width: 100%;
-  height: 3px;
+  right: 0;
+  height: 4px;
   background-color: var(--primary-color);
-  border-radius: 3px 3px 0 0;
+  border-radius: 4px 4px 0 0;
 }
 
-.feed {
-  padding: 1.5rem 1rem;
-  display: flex;
-  flex-direction: column;
+@media (max-width: 900px) {
+  .app-container {
+    flex-direction: column;
+    padding-bottom: 70px; /* Space for MobileNav */
+  }
+  
+  .main-feed {
+    max-width: 100%;
+    border-left: none;
+    border-right: none;
+  }
+  
+  .feed {
+    padding: var(--space-sm) 0;
+  }
 }
+
+
 
 .empty-state {
   text-align: center;

@@ -1,22 +1,45 @@
 @import url('https://fonts.googleapis.com/css2?family=Helvetica+Neue:wght@400;500;700&display=swap');
 
 :root {
-  /* Colors - Light Theme based on screenshot feel */
-  --bg-color: #e5e7eb; /* Slightly darker gray to make white cards pop */
+  /* Surface & Background Colors */
+  --bg-color: #f7f9fa; /* Clean, premium whitish-grey */
   --card-bg: #ffffff;
-  --card-hover: #ffffff;
+  --card-hover: #fcfcfc;
   
-  --text-main: #111111;
-  --text-muted: #8e8e93;
-  --divider: #eaeaea;
+  /* Text Colors */
+  --text-main: #0f1419;
+  --text-muted: #536471;
+  --divider: #eff3f4;
   
-  --primary-color: #ff6b00; /* Vibrant Orange for high contrast */
+  /* Primary Brand Colors */
+  --primary-color: #ff6b00;
   --primary-hover: #e65c00;
   --primary-light: rgba(255, 107, 0, 0.1);
   
-  /* Shared values */
+  /* Action Colors System */
+  --action-like: #f91880;
+  --action-like-hover: rgba(249, 24, 128, 0.1);
+  --action-repost: #00ba7c;
+  --action-repost-hover: rgba(0, 186, 124, 0.1);
+  --action-comment: #1d9bf0;
+  --action-comment-hover: rgba(29, 155, 240, 0.1);
+  --action-save: #ffd400;
+  --action-save-hover: rgba(255, 212, 0, 0.1);
+
+  /* Spacing System */
+  --space-xs: 0.25rem;
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+
+  /* Typography & Effects */
   --font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
-  --shadow-soft: 0 4px 12px rgba(0, 0, 0, 0.08); /* Slightly stiffer shadow */
+  --shadow-soft: 0 1px 3px rgba(0, 0, 0, 0.05), 0 4px 12px rgba(0, 0, 0, 0.03);
+  --radius-sm: 8px;
+  --radius-md: 16px;
+  --radius-pill: 9999px;
+  --transition-smooth: 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
 * {

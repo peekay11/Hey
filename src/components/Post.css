@@ -2,12 +2,23 @@
   display: flex;
   flex-direction: column;
   background-color: var(--card-bg);
-  border-radius: 16px;
+  border-radius: var(--radius-md);
   position: relative;
-  padding: 1.5rem 1.5rem 0 1.5rem;
+  padding: var(--space-lg) var(--space-lg) 0 var(--space-lg);
   box-shadow: var(--shadow-soft);
   margin-top: 15px; /* space for floating avatar */
+  transition: var(--transition-smooth);
+}
 
+@media (max-width: 600px) {
+  .post {
+    border-radius: 0;
+    margin-top: 10px;
+    padding: var(--space-md) var(--space-md) 0 var(--space-md);
+    border-left: none;
+    border-right: none;
+    box-shadow: 0 1px 2px rgba(0,0,0,0.05); /* Lighter shadow on mobile */
+  }
 }
 
 .post-avatar-badge {
@@ -267,40 +278,40 @@
 }
 
 .btn-action-like:hover .material-symbols-outlined {
-  color: #f91880;
+  color: var(--action-like);
   transform: scale(1.1);
 }
 .btn-action-repost:hover .material-symbols-outlined {
-  color: #00ba7c;
+  color: var(--action-repost);
   transform: scale(1.1);
 }
 .btn-action-comment:hover .material-symbols-outlined {
-  color: #1d9bf0;
+  color: var(--action-comment);
   transform: scale(1.1);
 }
 .btn-action-save:hover .material-symbols-outlined {
-  color: #ffd400;
+  color: var(--action-save);
   transform: scale(1.1);
 }
 
 /* Active states */
-.active-like { color: #f91880; }
+.active-like { color: var(--action-like); }
 .active-like .material-symbols-outlined {
-  color: #f91880;
+  color: var(--action-like);
   transform: scale(1.15);
   animation: popIcon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.active-repost { color: #00ba7c; }
+.active-repost { color: var(--action-repost); }
 .active-repost .material-symbols-outlined {
-  color: #00ba7c;
+  color: var(--action-repost);
   transform: scale(1.15);
   animation: popIcon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.active-save { color: #ffd400; }
+.active-save { color: var(--action-save); }
 .active-save .material-symbols-outlined {
-  color: #ffd400;
+  color: var(--action-save);
   transform: scale(1.15);
   animation: popIcon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
@@ -341,9 +352,9 @@
 }
 
 .alert-card:hover {
-  background-color: #fcfcfc;
+  background-color: var(--card-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.08);
+  box-shadow: var(--shadow-soft);
 }
 
 .post-reply-input {
