@@ -1,16 +1,33 @@
-# React + Vite
+# Hey 👋
+A beautiful, responsive, and fully-featured modern social media web application.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+![App Screenshot](./assets/screenshot.png)
 
-Currently, two official plugins are available:
+## Features
+- **Modern UI/UX**: Aesthetic design with glassmorphism, fluid micro-interactions, and premium styling.
+- **End-to-End Navigation**: Seamless routing across Home, Discover, Alerts, Saved, and Profile pages.
+- **Accessible Design**: Full support for screen readers, keyboard-only navigation (visible focus rings), and touch devices.
+- **Interactive Composer**: Fully functional mock media attachments (Images, Polls, Location, Emojis).
+- **Responsive Layout**: Adapts perfectly from Desktop down to Mobile (bottom navigation bar).
+- **End-to-End Tested**: Robust UI test suite powered by Playwright.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Getting Started
 
-## React Compiler
+First, install the dependencies:
+```bash
+npm install
+```
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Then, run the development server:
+```bash
+npm run dev
+```
 
-## Expanding the ESLint configuration
+Open [http://localhost:5173](http://localhost:5173) in your browser to see the app in action!
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Testing
+
+Run the End-to-End tests to verify the UI flow:
+```bash
+npx playwright test
+```
