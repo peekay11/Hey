@@ -1,122 +1,179 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import React, { useState } from 'react';
+import Post from './components/Post';
+import Reply from './components/Reply';
+import './App.css';
+
+const MOCK_DATA = [
+  {
+    id: 1,
+    author: 'Thabo_M',
+    text: 'Hey, any good barber in Soweto? Need a fresh fade for the weekend.',
+    location: 'Soweto',
+    category: 'Barber',
+    timestamp: '2h ago',
+    upvotes: 14,
+    status: 'Answered',
+    boosted: true,
+    replies: [
+      {
+        id: 101,
+        author: 'Sipho_Cuts',
+        text: 'Come through to my shop, we sort you out nice and clean.',
+        taggedBusiness: 'SiphoCutsSoweto',
+        upvotes: 5,
+        isHelpful: true,
+        timestamp: '1h ago'
+      },
+      {
+        id: 102,
+        author: 'Lerato_99',
+        text: 'Legends Barbershop is the best in the area.',
+        taggedBusiness: 'LegendsBarber',
+        upvotes: 2,
+        isHelpful: false,
+        timestamp: '1.5h ago'
+      }
+    ]
+  },
+  {
+    id: 2,
+    author: 'Nandi_K',
+    text: 'Hey, looking for a reliable photographer for a birthday party in Braam. Recommendations?',
+    location: 'Braamfontein',
+    category: 'Photographer',
+    timestamp: '5h ago',
+    upvotes: 8,
+    status: 'Open',
+    boosted: false,
+    replies: [
+      {
+        id: 201,
+        author: 'Thando_Pics',
+        text: 'I do event photography! Check out my portfolio on my page.',
+        taggedBusiness: 'ThandoPhotography',
+        upvotes: 12,
+        isHelpful: false,
+        timestamp: '3h ago'
+      }
+    ]
+  },
+  {
+    id: 3,
+    author: 'Kagiso_J',
+    text: 'Hey, where can I get the best wings around here?',
+    location: 'Soweto',
+    category: 'Food',
+    timestamp: '1d ago',
+    upvotes: 32,
+    status: 'Answered',
+    boosted: false,
+    replies: [
+      {
+        id: 301,
+        author: 'Foodie_SA',
+        text: 'You have to try wing republic, no debate.',
+        taggedBusiness: 'WingRepublic',
+        upvotes: 25,
+        isHelpful: true,
+        timestamp: '22h ago'
+      }
+    ]
+  }
+];
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [search, setSearch] = useState('');
+  const [categoryFilter, setCategoryFilter] = useState('All');
+  const [locationFilter, setLocationFilter] = useState('All');
+
+  // Filter posts based on search and filters
+  const filteredPosts = MOCK_DATA.filter(post => {
+    const matchSearch = post.text.toLowerCase().includes(search.toLowerCase());
+    const matchCategory = categoryFilter === 'All' || post.category === categoryFilter;
+    const matchLocation = locationFilter === 'All' || post.location === locationFilter;
+    return matchSearch && matchCategory && matchLocation;
+  });
 
   return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
-        </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          type="button"
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
+    <div className="app-container">
+      <header>
+        <h1>"Hey" App</h1>
+        <p>Local chat. Local discovery. Just ask.</p>
+      </header>
 
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
+      <main>
+        <div className="search-bar">
+          <input 
+            type="text" 
+            placeholder="Search past posts/answers..." 
+            className="search-input"
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+          <select 
+            className="filter-select"
+            value={locationFilter}
+            onChange={(e) => setLocationFilter(e.target.value)}
+          >
+            <option value="All">All Locations</option>
+            <option value="Soweto">Soweto</option>
+            <option value="Braamfontein">Braamfontein</option>
+          </select>
+          <select 
+            className="filter-select"
+            value={categoryFilter}
+            onChange={(e) => setCategoryFilter(e.target.value)}
+          >
+            <option value="All">All Categories</option>
+            <option value="Barber">Barber</option>
+            <option value="Photographer">Photographer</option>
+            <option value="Food">Food</option>
+          </select>
         </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
 
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+        <div className="feed">
+          {filteredPosts.map(post => (
+            <div key={post.id} className="post-thread">
+              <Post 
+                author={post.author}
+                text={post.text}
+                location={post.location}
+                category={post.category}
+                timestamp={post.timestamp}
+                upvotes={post.upvotes}
+                replyCount={post.replies.length}
+                status={post.status}
+                boosted={post.boosted}
+              />
+              
+              {post.replies.length > 0 && (
+                <div className="replies-container">
+                  {post.replies.map(reply => (
+                    <Reply 
+                      key={reply.id}
+                      author={reply.author}
+                      text={reply.text}
+                      taggedBusiness={reply.taggedBusiness}
+                      upvotes={reply.upvotes}
+                      isHelpful={reply.isHelpful}
+                      timestamp={reply.timestamp}
+                      isAuthor={false} // mock user is not author
+                    />
+                  ))}
+                </div>
+              )}
+            </div>
+          ))}
+
+          {filteredPosts.length === 0 && (
+            <div className="empty-state">
+              <p>No posts found matching your criteria.</p>
+            </div>
+          )}
+        </div>
+      </main>
+    </div>
+  );
 }
 
-export default App
+export default App;
