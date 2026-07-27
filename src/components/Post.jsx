@@ -16,6 +16,7 @@ const Post = ({
   timestamp, 
   upvotes: initialUpvotes, 
   replyCount, 
+  reposts: initialReposts,
   status, 
   boosted,
   isExpanded,
@@ -49,6 +50,21 @@ const Post = ({
       setUpvotes(prev => prev + 1);
       setHasUpvoted(true);
       triggerParticles('favorite');
+    }
+  };
+
+  const [hasReposted, setHasReposted] = useState(false);
+  const [reposts, setReposts] = useState(initialReposts || 0);
+
+  const handleRepost = () => {
+    playPopSound();
+    if (hasReposted) {
+      setReposts(prev => prev - 1);
+      setHasReposted(false);
+    } else {
+      setReposts(prev => prev + 1);
+      setHasReposted(true);
+      triggerParticles('repeat');
     }
   };
 
@@ -178,6 +194,14 @@ const Post = ({
         <button className="btn-action-icon" onClick={onToggleReplies}>
           <span className="material-symbols-outlined">chat_bubble_outline</span>
           <span>{replyCount}</span>
+        </button>
+
+        <button 
+          className={`btn-action-icon ${hasReposted ? 'active-action' : ''}`}
+          onClick={handleRepost}
+        >
+          <span className="material-symbols-outlined">repeat</span>
+          <span>{reposts}</span>
         </button>
 
         <button className="btn-action-icon">

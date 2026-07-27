@@ -23,6 +23,7 @@ const MOCK_DATA = [
     category: 'Barber',
     timestamp: '2h ago',
     upvotes: 14,
+    reposts: 5,
     status: 'Answered',
     boosted: true,
     replies: [
@@ -60,6 +61,7 @@ const MOCK_DATA = [
     category: 'Photographer',
     timestamp: '5h ago',
     upvotes: 8,
+    reposts: 12,
     status: 'Open',
     boosted: false,
     replies: [
@@ -85,6 +87,7 @@ const MOCK_DATA = [
     category: 'Food',
     timestamp: '1d ago',
     upvotes: 32,
+    reposts: 25,
     status: 'Answered',
     boosted: false,
     replies: [
@@ -108,6 +111,7 @@ const MOCK_DATA = [
     category: 'Community',
     timestamp: '1h ago',
     upvotes: 112,
+    reposts: 12,
     status: 'Open',
     boosted: false,
     replies: []
