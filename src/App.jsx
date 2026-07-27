@@ -160,7 +160,14 @@ function App() {
               
               {post.replies.length > 0 && (
                 <div className="replies-container">
-                  {post.replies.map(reply => (
+                  {[...post.replies]
+                    .sort((a, b) => {
+                      if (a.isHelpful && !b.isHelpful) return -1;
+                      if (!a.isHelpful && b.isHelpful) return 1;
+                      if (b.upvotes !== a.upvotes) return b.upvotes - a.upvotes;
+                      return 0; // fallback to keeping order (would be timestamp based in real app)
+                    })
+                    .map(reply => (
                     <Reply 
                       key={reply.id}
                       author={reply.author}
