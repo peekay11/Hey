@@ -11,9 +11,14 @@ import './App.css';
 const MOCK_DATA = [
   {
     id: 1,
+    type: 'poll',
     author: 'Thabo_M',
     text: '@Hey, any good barber in Soweto? Need a fresh fade for the weekend.',
-    image: null,
+    pollOptions: [
+      { text: 'Legends Barbershop', percent: 65 },
+      { text: 'Sipho Cuts', percent: 25 },
+      { text: 'Other (Check comments)', percent: 10 }
+    ],
     location: 'Soweto',
     category: 'Barber',
     timestamp: '2h ago',
@@ -43,9 +48,14 @@ const MOCK_DATA = [
   },
   {
     id: 2,
+    type: 'gallery',
     author: 'Nandi_K',
     text: '@Hey, looking for a reliable photographer for a birthday party in Braam. Recommendations?',
-    image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    images: [
+      'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+      'https://images.unsplash.com/photo-1520854221256-17451cc331bf?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+      'https://images.unsplash.com/photo-1551316679-9c6ae9dec224?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80'
+    ],
     location: 'Braamfontein',
     category: 'Photographer',
     timestamp: '5h ago',
@@ -66,9 +76,11 @@ const MOCK_DATA = [
   },
   {
     id: 3,
+    type: 'reel',
     author: 'Kagiso_J',
     text: '@Hey, where can I get the best wings around here? 🍗',
     image: 'https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
+    videoUrl: 'https://www.w3schools.com/html/mov_bbb.mp4',
     location: 'Soweto',
     category: 'Food',
     timestamp: '1d ago',
@@ -86,6 +98,19 @@ const MOCK_DATA = [
         timestamp: '22h ago'
       }
     ]
+  },
+  {
+    id: 4,
+    type: 'text',
+    author: 'Sipho_Cuts',
+    text: '@Hey, just wanted to say thank you to everyone who pulled up to the shop this weekend. The community support is real! 🙏🏾💯',
+    location: 'Soweto',
+    category: 'Community',
+    timestamp: '1h ago',
+    upvotes: 112,
+    status: 'Open',
+    boosted: false,
+    replies: []
   }
 ];
 

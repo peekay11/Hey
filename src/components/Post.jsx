@@ -3,10 +3,14 @@ import { playPopSound } from '../utils/sound';
 import './Post.css';
 
 const Post = ({ 
+  type = 'text',
   author, 
   avatar, 
   text, 
   image,
+  images,
+  videoUrl,
+  pollOptions,
   location, 
   category, 
   timestamp, 
@@ -32,8 +36,7 @@ const Post = ({
   };
 
   const renderText = (content) => {
-    // If the text starts with "@Hey", wrap the "@Hey" part in a branded span
-    if (content.startsWith('@Hey')) {
+    if (content && content.startsWith('@Hey')) {
       return (
         <>
           <span className="brand-hey-text">@Hey</span>
@@ -42,6 +45,74 @@ const Post = ({
       );
     }
     return content;
+  };
+
+  const [pollVoted, setPollVoted] = useState(false);
+
+  const renderContent = () => {
+    switch (type) {
+      case 'gallery':
+        return (
+          <>
+            <p className="post-text">{renderText(text)}</p>
+            <div className="post-gallery">
+              {images.map((img, i) => (
+                <img key={i} src={img} alt={`Gallery ${i}`} className="post-gallery-img" />
+              ))}
+            </div>
+          </>
+        );
+      case 'reel':
+        return (
+          <>
+            <p className="post-text">{renderText(text)}</p>
+            <div className="post-reel-container">
+              <video 
+                src={videoUrl} 
+                className="post-reel-video" 
+                controls 
+                loop 
+                muted 
+                playsInline
+                poster={image}
+              />
+            </div>
+          </>
+        );
+      case 'poll':
+        return (
+          <>
+            <p className="post-text">{renderText(text)}</p>
+            <div className="post-poll-container">
+              {pollOptions.map((opt, i) => (
+                <button 
+                  key={i} 
+                  className={`poll-option ${pollVoted ? 'poll-voted' : ''}`}
+                  onClick={() => { playPopSound(); setPollVoted(true); }}
+                  disabled={pollVoted}
+                >
+                  <span className="poll-option-text">{opt.text}</span>
+                  {pollVoted && <span className="poll-option-percent">{opt.percent}%</span>}
+                  {pollVoted && <div className="poll-progress" style={{width: `${opt.percent}%`}}></div>}
+                </button>
+              ))}
+              <span className="poll-total-votes">{pollVoted ? '1,204 votes' : 'Poll ends in 2 days'}</span>
+            </div>
+          </>
+        );
+      case 'text':
+      default:
+        return (
+          <>
+            <p className="post-text">{renderText(text)}</p>
+            {image && (
+              <div className="post-image-container">
+                <img src={image} alt="Post attachment" className="post-image" />
+              </div>
+            )}
+          </>
+        );
+    }
   };
 
   return (
@@ -61,12 +132,7 @@ const Post = ({
       </div>
       
       <div className="post-content">
-        <p className="post-text">{renderText(text)}</p>
-        {image && (
-          <div className="post-image-container">
-            <img src={image} alt="Post attachment" className="post-image" />
-          </div>
-        )}
+        {renderContent()}
       </div>
 
       <div className="post-tags">
