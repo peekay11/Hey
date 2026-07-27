@@ -255,32 +255,52 @@
   z-index: 2;
 }
 
-.btn-action-icon:hover {
-  color: var(--primary-hover);
-}
-
 .btn-action-icon:active {
   transform: scale(0.85);
 }
 
 .btn-action-icon .material-symbols-outlined {
   font-size: 1.4rem;
-  color: var(--text-main);
+  color: var(--text-muted);
+  font-variation-settings: 'FILL' 1;
   transition: color 0.2s, transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.btn-action-icon:hover .material-symbols-outlined {
-  color: var(--primary-hover);
+.btn-action-like:hover .material-symbols-outlined {
+  color: #f91880;
+  transform: scale(1.1);
+}
+.btn-action-repost:hover .material-symbols-outlined {
+  color: #00ba7c;
+  transform: scale(1.1);
+}
+.btn-action-comment:hover .material-symbols-outlined {
+  color: #1d9bf0;
+  transform: scale(1.1);
+}
+.btn-action-save:hover .material-symbols-outlined {
+  color: #ffd400;
   transform: scale(1.1);
 }
 
-.active-action {
-  color: var(--primary-color);
+/* Active states */
+.active-like { color: #f91880; }
+.active-like .material-symbols-outlined {
+  color: #f91880;
+  transform: scale(1.15);
+  animation: popIcon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
 
-.active-action .material-symbols-outlined {
-  color: var(--primary-color);
-  font-variation-settings: 'FILL' 1;
+.active-repost { color: #00ba7c; }
+.active-repost .material-symbols-outlined {
+  color: #00ba7c;
+  transform: scale(1.15);
+  animation: popIcon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.active-save { color: #ffd400; }
+.active-save .material-symbols-outlined {
+  color: #ffd400;
   transform: scale(1.15);
   animation: popIcon 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }
