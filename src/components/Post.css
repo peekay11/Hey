@@ -239,11 +239,6 @@
   position: relative;
 }
 
-.action-button-container {
-  position: relative;
-  display: inline-block;
-}
-
 .btn-action-icon {
   background: transparent;
   border: none;

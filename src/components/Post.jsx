@@ -167,15 +167,13 @@ const Post = ({
       </div>
 
       <div className="post-action-bar">
-        <div className="action-button-container">
-          <button 
-            className={`btn-action-icon ${hasUpvoted ? 'active-action' : ''}`}
-            onClick={handleUpvote}
-          >
-            <span className="material-symbols-outlined">{hasUpvoted ? 'favorite' : 'favorite_border'}</span>
-            <span>{upvotes}</span>
-          </button>
-        </div>
+        <button 
+          className={`btn-action-icon ${hasUpvoted ? 'active-action' : ''}`}
+          onClick={handleUpvote}
+        >
+          <span className="material-symbols-outlined">{hasUpvoted ? 'favorite' : 'favorite_border'}</span>
+          <span>{upvotes}</span>
+        </button>
         
         <button className="btn-action-icon" onClick={onToggleReplies}>
           <span className="material-symbols-outlined">chat_bubble_outline</span>
@@ -186,14 +184,13 @@ const Post = ({
           <span className="material-symbols-outlined">send</span>
         </button>
 
-        <div className="action-button-container" style={{ marginLeft: 'auto' }}>
-          <button 
-            className={`btn-action-icon ${hasSaved ? 'active-action' : ''}`}
-            onClick={handleSave}
-          >
-            <span className="material-symbols-outlined">{hasSaved ? 'bookmark' : 'bookmark_border'}</span>
-          </button>
-        </div>
+        <button 
+          className={`btn-action-icon ${hasSaved ? 'active-action' : ''}`}
+          onClick={handleSave}
+          style={{ marginLeft: 'auto' }}
+        >
+          <span className="material-symbols-outlined">{hasSaved ? 'bookmark' : 'bookmark_border'}</span>
+        </button>
         
         {/* Particle Overlay for the entire bar to share */}
         {particles.length > 0 && (
