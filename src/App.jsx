@@ -21,6 +21,7 @@ import { ApiService } from './services/api';
 const HomeFeed = ({ search, setSearch, posts, loading, refetch }) => {
   const isMobile = useIsMobile(900);
   const [expandedPosts, setExpandedPosts] = useState({});
+  const [activeTab, setActiveTab] = useState('Latest');
 
   const togglePost = (postId) => {
     setExpandedPosts(prev => ({
@@ -38,6 +39,17 @@ const HomeFeed = ({ search, setSearch, posts, loading, refetch }) => {
     }
   };
 
+  const displayedPosts = posts.filter(post => {
+    if (activeTab === 'Nearby') {
+      return ['Johannesburg', 'Soweto', 'Braamfontein'].includes(post.location);
+    }
+    if (activeTab === 'Following') {
+      // Mock list of people the user follows
+      return ['Lerato_K', 'Sipho_Cuts', 'Thabo_M'].includes(post.author);
+    }
+    return true; // Latest shows all
+  });
+
   return (
     <main className="main-feed">
       <div className="feed-header">
@@ -48,9 +60,24 @@ const HomeFeed = ({ search, setSearch, posts, loading, refetch }) => {
           placeholder="Search past posts/answers..." 
         />
         <div className="feed-tabs">
-          <button className="tab active">Latest</button>
-          <button className="tab">Nearby</button>
-          <button className="tab">Following</button>
+          <button 
+            className={`tab ${activeTab === 'Latest' ? 'active' : ''}`}
+            onClick={() => setActiveTab('Latest')}
+          >
+            Latest
+          </button>
+          <button 
+            className={`tab ${activeTab === 'Nearby' ? 'active' : ''}`}
+            onClick={() => setActiveTab('Nearby')}
+          >
+            Nearby
+          </button>
+          <button 
+            className={`tab ${activeTab === 'Following' ? 'active' : ''}`}
+            onClick={() => setActiveTab('Following')}
+          >
+            Following
+          </button>
         </div>
       </div>
 
@@ -60,12 +87,12 @@ const HomeFeed = ({ search, setSearch, posts, loading, refetch }) => {
             <div className="spinner"></div>
             <p>Loading feed...</p>
           </div>
-        ) : posts.length === 0 ? (
+        ) : displayedPosts.length === 0 ? (
           <div className="empty-state">
             <p>No posts found matching your criteria.</p>
           </div>
         ) : (
-          posts.map(post => {
+          displayedPosts.map(post => {
             const isExpanded = !!expandedPosts[post.id];
             return (
               <div key={post.id} className="post-thread">
