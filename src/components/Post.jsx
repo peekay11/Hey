@@ -179,8 +179,9 @@ const Post = ({
             className="btn-icon-only" 
             style={{ color: '#f91880', marginLeft: 'auto' }}
             title="Delete post"
+            aria-label="Delete post"
           >
-            <span className="material-symbols-outlined" style={{ fontSize: '1.2rem' }}>delete</span>
+            <span className="material-symbols-outlined" style={{ fontSize: '1.2rem' }} aria-hidden="true">delete</span>
           </button>
         )}
       </div>
@@ -200,34 +201,42 @@ const Post = ({
         <button 
           className={`btn-action-icon btn-action-like ${hasUpvoted ? 'active-like' : ''}`}
           onClick={handleUpvote}
+          aria-label={hasUpvoted ? "Unlike post" : "Like post"}
         >
-          <span className="material-symbols-outlined">favorite</span>
-          <span>{upvotes}</span>
+          <span className="material-symbols-outlined" aria-hidden="true">favorite</span>
+          <span aria-label={`${upvotes} likes`}>{upvotes}</span>
         </button>
         
-        <button className="btn-action-icon btn-action-comment" onClick={onToggleReplies}>
-          <span className="material-symbols-outlined">chat_bubble</span>
-          <span>{replyCount}</span>
+        <button 
+          className="btn-action-icon btn-action-comment" 
+          onClick={onToggleReplies}
+          aria-label={isExpanded ? "Hide replies" : "Show replies"}
+          aria-expanded={isExpanded}
+        >
+          <span className="material-symbols-outlined" aria-hidden="true">chat_bubble</span>
+          <span aria-label={`${replyCount} replies`}>{replyCount}</span>
         </button>
 
         <button 
           className={`btn-action-icon btn-action-repost ${hasReposted ? 'active-repost' : ''}`}
           onClick={handleRepost}
+          aria-label={hasReposted ? "Undo repost" : "Repost"}
         >
-          <span className="material-symbols-outlined">repeat</span>
-          <span>{reposts}</span>
+          <span className="material-symbols-outlined" aria-hidden="true">repeat</span>
+          <span aria-label={`${reposts} reposts`}>{reposts}</span>
         </button>
 
-        <button className="btn-action-icon btn-action-send">
-          <span className="material-symbols-outlined">send</span>
+        <button className="btn-action-icon btn-action-send" aria-label="Share post">
+          <span className="material-symbols-outlined" aria-hidden="true">send</span>
         </button>
 
         <button 
           className={`btn-action-icon btn-action-save ${hasSaved ? 'active-save' : ''}`}
           onClick={handleSave}
           style={{ marginLeft: 'auto' }}
+          aria-label={hasSaved ? "Unsave post" : "Save post"}
         >
-          <span className="material-symbols-outlined">bookmark</span>
+          <span className="material-symbols-outlined" aria-hidden="true">bookmark</span>
         </button>
         
         {/* Particle Overlay */}

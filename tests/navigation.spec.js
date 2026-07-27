@@ -44,7 +44,7 @@ test.describe('Hey Navigation Flow', () => {
     await composeBox.fill('@Hey Playwright is awesome');
     
     // Click post button inside modal
-    await page.click('button:has-text("Post")');
+    await page.getByRole('button', { name: 'Post', exact: true }).click();
 
     // Modal should close automatically after posting
     await expect(composeBox).not.toBeVisible();

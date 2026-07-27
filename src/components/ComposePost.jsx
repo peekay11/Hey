@@ -50,6 +50,7 @@ const ComposePost = ({ onPostCreated, isModal = false }) => {
       <div style={{ flex: 1, display: 'flex', flexDirection: 'column', gap: '0.5rem' }}>
         <textarea 
           placeholder="What's happening?"
+          aria-label="Write a new post"
           value={`@Hey ${userText}`}
           onChange={handleTextChange}
           style={{
@@ -66,11 +67,11 @@ const ComposePost = ({ onPostCreated, isModal = false }) => {
         />
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', borderTop: '1px solid var(--divider)', paddingTop: '0.75rem' }}>
           <div style={{ display: 'flex', gap: '0.5rem', color: 'var(--primary-color)' }}>
-            <span className="material-symbols-outlined" style={{ cursor: 'pointer' }}>image</span>
-            <span className="material-symbols-outlined" style={{ cursor: 'pointer' }}>gif_box</span>
-            <span className="material-symbols-outlined" style={{ cursor: 'pointer' }}>poll</span>
-            <span className="material-symbols-outlined" style={{ cursor: 'pointer' }}>sentiment_satisfied</span>
-            <span className="material-symbols-outlined" style={{ cursor: 'pointer' }}>location_on</span>
+            <button aria-label="Add image" style={{ background: 'none', border: 'none', color: 'inherit', display: 'flex', padding: 0 }}><span className="material-symbols-outlined" aria-hidden="true">image</span></button>
+            <button aria-label="Add GIF" style={{ background: 'none', border: 'none', color: 'inherit', display: 'flex', padding: 0 }}><span className="material-symbols-outlined" aria-hidden="true">gif_box</span></button>
+            <button aria-label="Add poll" style={{ background: 'none', border: 'none', color: 'inherit', display: 'flex', padding: 0 }}><span className="material-symbols-outlined" aria-hidden="true">poll</span></button>
+            <button aria-label="Add emoji" style={{ background: 'none', border: 'none', color: 'inherit', display: 'flex', padding: 0 }}><span className="material-symbols-outlined" aria-hidden="true">sentiment_satisfied</span></button>
+            <button aria-label="Add location" style={{ background: 'none', border: 'none', color: 'inherit', display: 'flex', padding: 0 }}><span className="material-symbols-outlined" aria-hidden="true">location_on</span></button>
           </div>
           <button 
             onClick={handleSubmit}

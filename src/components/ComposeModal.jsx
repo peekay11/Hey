@@ -36,8 +36,9 @@ const ComposeModal = ({ onClose, onPostCreated }) => {
           <button 
             onClick={onClose}
             style={{ background: 'none', border: 'none', cursor: 'pointer', display: 'flex', color: 'var(--text-main)' }}
+            aria-label="Close modal"
           >
-            <span className="material-symbols-outlined">close</span>
+            <span className="material-symbols-outlined" aria-hidden="true">close</span>
           </button>
           <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Compose Post</span>
           <div style={{ width: '24px' }}></div> {/* spacer for centering */}

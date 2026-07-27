@@ -43,8 +43,8 @@ const Reply = ({
           <span className="reply-author">{author}</span>
           <span className="reply-timestamp">{timestamp}</span>
         </div>
-        <button className="btn-icon-only">
-          <span className="material-symbols-outlined">more_horiz</span>
+        <button className="btn-icon-only" aria-label="More options">
+          <span className="material-symbols-outlined" aria-hidden="true">more_horiz</span>
         </button>
       </div>
         
@@ -61,8 +61,9 @@ const Reply = ({
         <button 
           className={`btn-reply-action ${hasUpvoted ? 'active-upvote' : ''}`}
           onClick={handleUpvote}
+          aria-label={hasUpvoted ? "Remove upvote" : "Upvote reply"}
         >
-          <span className="material-symbols-outlined">arrow_upward</span> {upvotes}
+          <span className="material-symbols-outlined" aria-hidden="true">arrow_upward</span> <span aria-label={`${upvotes} upvotes`}>{upvotes}</span>
         </button>
         
         {isHelpful ? (

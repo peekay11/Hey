@@ -27,9 +27,10 @@ const SidebarRight = ({
         <h3>Filters</h3>
         
         <div className="filter-group">
-          <label>Location</label>
+          <label htmlFor="location-select">Location</label>
           <div className="select-wrapper">
             <select 
+              id="location-select"
               className="filter-select"
               value={locationFilter}
               onChange={(e) => setLocationFilter(e.target.value)}
@@ -38,15 +39,16 @@ const SidebarRight = ({
               <option value="Soweto">Soweto</option>
               <option value="Braamfontein">Braamfontein</option>
             </select>
-            <span className="material-symbols-outlined select-icon">expand_more</span>
+            <span className="material-symbols-outlined select-icon" aria-hidden="true">expand_more</span>
           </div>
           <button className="btn-follow">+ Follow Location</button>
         </div>
         
         <div className="filter-group">
-          <label>Category</label>
+          <label htmlFor="category-select">Category</label>
           <div className="select-wrapper">
             <select 
+              id="category-select"
               className="filter-select"
               value={categoryFilter}
               onChange={(e) => setCategoryFilter(e.target.value)}
@@ -56,7 +58,7 @@ const SidebarRight = ({
               <option value="Photographer">Photographer</option>
               <option value="Food">Food</option>
             </select>
-            <span className="material-symbols-outlined select-icon">expand_more</span>
+            <span className="material-symbols-outlined select-icon" aria-hidden="true">expand_more</span>
           </div>
           <button className="btn-follow">+ Follow Category</button>
         </div>

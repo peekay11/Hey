@@ -7,22 +7,22 @@ const MobileNav = ({ isMobile, onComposeClick }) => {
 
   return (
     <nav className="mobile-bottom-nav">
-      <NavLink to="/" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} end>
-        <span className="material-symbols-outlined">home</span>
+      <NavLink to="/" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} end aria-label="Home">
+        <span className="material-symbols-outlined" aria-hidden="true">home</span>
       </NavLink>
-      <NavLink to="/discover" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-        <span className="material-symbols-outlined">explore</span>
+      <NavLink to="/discover" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} aria-label="Discover">
+        <span className="material-symbols-outlined" aria-hidden="true">explore</span>
       </NavLink>
       <div className="nav-item-compose">
-        <button className="btn-mobile-compose" onClick={onComposeClick}>
-          <span className="material-symbols-outlined">edit_square</span>
+        <button className="btn-mobile-compose" onClick={onComposeClick} aria-label="Compose new post">
+          <span className="material-symbols-outlined" aria-hidden="true">edit_square</span>
         </button>
       </div>
-      <NavLink to="/alerts" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-        <span className="material-symbols-outlined">notifications</span>
+      <NavLink to="/alerts" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} aria-label="Alerts">
+        <span className="material-symbols-outlined" aria-hidden="true">notifications</span>
       </NavLink>
-      <NavLink to="/profile" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"}>
-        <span className="material-symbols-outlined">person</span>
+      <NavLink to="/profile" className={({ isActive }) => isActive ? "nav-item active" : "nav-item"} aria-label="Profile">
+        <span className="material-symbols-outlined" aria-hidden="true">person</span>
       </NavLink>
     </nav>
   );

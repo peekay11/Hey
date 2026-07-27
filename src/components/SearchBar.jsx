@@ -14,10 +14,11 @@ const SearchBar = ({
 
   return (
     <div className="search-bar">
-      <span className="material-symbols-outlined search-icon">search</span>
+      <span className="material-symbols-outlined search-icon" aria-hidden="true">search</span>
       <input 
         type="text" 
         placeholder={placeholder}
+        aria-label={placeholder}
         className="search-input"
         value={value || ''}
         onChange={(e) => onChange && onChange(e.target.value)}
