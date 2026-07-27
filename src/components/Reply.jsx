@@ -31,11 +31,14 @@ const Reply = ({
 
         <div className="reply-footer">
           <button className="btn-action btn-upvote">
-            ▲ <span className="action-count">{upvotes}</span>
+            <span className="material-symbols-outlined">thumb_up</span>
+            <span className="action-count">{upvotes}</span>
           </button>
           
           {isHelpful && (
-            <span className="helpful-badge">✓ Helpful</span>
+            <span className="helpful-badge">
+              <span className="material-symbols-outlined">check_circle</span> Helpful
+            </span>
           )}
           
           {!isHelpful && isAuthor && (

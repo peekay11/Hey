@@ -2,7 +2,7 @@
   display: flex;
   gap: 1rem;
   padding: 1.25rem 0;
-  border-bottom: 1px solid rgba(51, 65, 85, 0.5); /* light border */
+  border-bottom: 1px solid var(--border-color);
   transition: background-color 0.2s;
 }
 
@@ -11,7 +11,8 @@
 }
 
 .reply-helpful {
-  background: linear-gradient(90deg, rgba(16, 185, 129, 0.05) 0%, transparent 100%);
+  /* Using white for helpful badge background in this theme, or just an outline */
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.05) 0%, transparent 100%);
   border-radius: 8px;
   padding-left: 1rem;
   margin-left: -1rem;
@@ -26,6 +27,7 @@
   height: 32px;
   border-radius: 50%;
   object-fit: cover;
+  border: 1px solid var(--border-color);
 }
 
 .reply-main {
@@ -67,29 +69,35 @@
   font-size: 0.85rem;
   padding: 0.2rem 0.5rem;
   border-radius: 4px;
-  background-color: rgba(99, 102, 241, 0.1);
+  border: 1px solid var(--primary-color);
   color: var(--primary-color);
   font-weight: 500;
 }
 
 .reply-tag:hover {
-  background-color: rgba(99, 102, 241, 0.2);
+  background-color: var(--primary-color);
+  color: var(--bg-color);
 }
 
 .reply-footer {
   display: flex;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   margin-top: 0.5rem;
 }
 
 .helpful-badge {
   font-size: 0.8rem;
-  color: var(--accent-green);
+  color: var(--text-main);
   font-weight: 600;
   display: flex;
   align-items: center;
   gap: 0.25rem;
+}
+
+.helpful-badge .material-symbols-outlined {
+  font-size: 1.2rem;
+  color: var(--primary-color);
 }
 
 .btn-mark-helpful {
@@ -97,11 +105,11 @@
   padding: 0.25rem 0.75rem;
   border-radius: 12px;
   border: 1px solid var(--border-color);
-  background: var(--card-bg);
+  background: transparent;
   color: var(--text-muted);
 }
 
 .btn-mark-helpful:hover {
-  border-color: var(--accent-green);
-  color: var(--accent-green);
+  border-color: var(--text-main);
+  color: var(--text-main);
 }

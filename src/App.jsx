@@ -8,6 +8,7 @@ const MOCK_DATA = [
     id: 1,
     author: 'Thabo_M',
     text: 'Hey, any good barber in Soweto? Need a fresh fade for the weekend.',
+    image: null,
     location: 'Soweto',
     category: 'Barber',
     timestamp: '2h ago',
@@ -39,6 +40,7 @@ const MOCK_DATA = [
     id: 2,
     author: 'Nandi_K',
     text: 'Hey, looking for a reliable photographer for a birthday party in Braam. Recommendations?',
+    image: 'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     location: 'Braamfontein',
     category: 'Photographer',
     timestamp: '5h ago',
@@ -60,7 +62,8 @@ const MOCK_DATA = [
   {
     id: 3,
     author: 'Kagiso_J',
-    text: 'Hey, where can I get the best wings around here?',
+    text: 'Hey, where can I get the best wings around here? 🍗',
+    image: 'https://images.unsplash.com/photo-1564834724105-918b73d1b9e0?ixlib=rb-4.0.3&auto=format&fit=crop&w=600&q=80',
     location: 'Soweto',
     category: 'Food',
     timestamp: '1d ago',
@@ -96,51 +99,51 @@ function App() {
 
   return (
     <div className="app-container">
-      <header>
-        <h1>"Hey" App</h1>
-        <p>Local chat. Local discovery. Just ask.</p>
-      </header>
-
-      <main>
-        <div className="search-bar">
-          <input 
-            type="text" 
-            placeholder="Search past posts/answers..." 
-            className="search-input"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-          />
-          <div className="filter-group">
-            <select 
-              className="filter-select"
-              value={locationFilter}
-              onChange={(e) => setLocationFilter(e.target.value)}
-            >
-              <option value="All">All Locations</option>
-              <option value="Soweto">Soweto</option>
-              <option value="Braamfontein">Braamfontein</option>
-            </select>
-            <button className="btn-follow">Follow</button>
+      {/* Left Sidebar Navigation */}
+      <aside className="sidebar-left">
+        <h1>Hey</h1>
+        <div className="nav-links">
+          <div className="nav-item active">
+            <span className="material-symbols-outlined icon-filled">home</span>
+            <span>Home</span>
           </div>
-          <div className="filter-group">
-            <select 
-              className="filter-select"
-              value={categoryFilter}
-              onChange={(e) => setCategoryFilter(e.target.value)}
-            >
-              <option value="All">All Categories</option>
-              <option value="Barber">Barber</option>
-              <option value="Photographer">Photographer</option>
-              <option value="Food">Food</option>
-            </select>
-            <button className="btn-follow">Follow</button>
+          <div className="nav-item">
+            <span className="material-symbols-outlined">explore</span>
+            <span>Discover</span>
+          </div>
+          <div className="nav-item">
+            <span className="material-symbols-outlined">notifications</span>
+            <span>Alerts</span>
+          </div>
+          <div className="nav-item">
+            <span className="material-symbols-outlined">person</span>
+            <span>Profile</span>
+          </div>
+          <div className="nav-item">
+            <span className="material-symbols-outlined">add_circle</span>
+            <span>Post</span>
           </div>
         </div>
+      </aside>
 
-        <div className="feed-tabs">
-          <button className="tab active">Latest</button>
-          <button className="tab">Nearby</button>
-          <button className="tab">Following</button>
+      {/* Middle Scrollable Feed */}
+      <main className="main-feed">
+        <div className="feed-header">
+          <div className="search-bar">
+            <span className="material-symbols-outlined search-icon">search</span>
+            <input 
+              type="text" 
+              placeholder="Search past posts/answers..." 
+              className="search-input"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+            />
+          </div>
+          <div className="feed-tabs">
+            <button className="tab active">Latest</button>
+            <button className="tab">Nearby</button>
+            <button className="tab">Following</button>
+          </div>
         </div>
 
         <div className="feed">
@@ -149,6 +152,7 @@ function App() {
               <Post 
                 author={post.author}
                 text={post.text}
+                image={post.image}
                 location={post.location}
                 category={post.category}
                 timestamp={post.timestamp}
@@ -165,7 +169,7 @@ function App() {
                       if (a.isHelpful && !b.isHelpful) return -1;
                       if (!a.isHelpful && b.isHelpful) return 1;
                       if (b.upvotes !== a.upvotes) return b.upvotes - a.upvotes;
-                      return 0; // fallback to keeping order (would be timestamp based in real app)
+                      return 0;
                     })
                     .map(reply => (
                     <Reply 
@@ -176,7 +180,7 @@ function App() {
                       upvotes={reply.upvotes}
                       isHelpful={reply.isHelpful}
                       timestamp={reply.timestamp}
-                      isAuthor={false} // mock user is not author
+                      isAuthor={false}
                     />
                   ))}
                 </div>
@@ -191,6 +195,42 @@ function App() {
           )}
         </div>
       </main>
+
+      {/* Right Sidebar Filters & Widgets */}
+      <aside className="sidebar-right">
+        <div className="filters-widget">
+          <h3>Filters</h3>
+          
+          <div className="filter-group">
+            <label>Location</label>
+            <select 
+              className="filter-select"
+              value={locationFilter}
+              onChange={(e) => setLocationFilter(e.target.value)}
+            >
+              <option value="All">All Locations</option>
+              <option value="Soweto">Soweto</option>
+              <option value="Braamfontein">Braamfontein</option>
+            </select>
+            <button className="btn-follow">+ Follow Location</button>
+          </div>
+          
+          <div className="filter-group">
+            <label>Category</label>
+            <select 
+              className="filter-select"
+              value={categoryFilter}
+              onChange={(e) => setCategoryFilter(e.target.value)}
+            >
+              <option value="All">All Categories</option>
+              <option value="Barber">Barber</option>
+              <option value="Photographer">Photographer</option>
+              <option value="Food">Food</option>
+            </select>
+            <button className="btn-follow">+ Follow Category</button>
+          </div>
+        </div>
+      </aside>
     </div>
   );
 }
