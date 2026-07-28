@@ -60,6 +60,13 @@ Resources:
         - AttributeName: post_id
           KeyType: HASH
       BillingMode: PAY_PER_REQUEST
+      GlobalSecondaryIndexes:
+        - IndexName: AuthorIndex
+          KeySchema:
+            - AttributeName: author_id
+              KeyType: HASH
+          Projection:
+            ProjectionType: ALL
 
   UsersTable:
     Type: AWS::DynamoDB::Table
@@ -135,7 +142,7 @@ Resources:
         DefaultRootObject: index.html
         Origins:
           - Id: FrontendBucketOrigin
-            DomainName: !GetAtt FrontendBucket.DomainName
+            DomainName: !GetAtt FrontendBucket.RegionalDomainName
             S3OriginConfig:
               OriginAccessIdentity: ""
         DefaultCacheBehavior:
@@ -151,7 +158,7 @@ Resources:
   # ==========================================
   # API GATEWAY & LAMBDA FUNCTIONS
   # ==========================================
-  
+
   # Auth Service (auth.py)
   AuthFunction:
     Type: AWS::Serverless::Function
@@ -173,7 +180,7 @@ Resources:
           Properties:
             Path: /auth/{action}
             Method: post
-  
+
   # Posts Service (posts.py)
   PostsFunction:
     Type: AWS::Serverless::Function
@@ -185,6 +192,11 @@ Resources:
             TableName: !Ref PostsTable
         - S3CrudPolicy:
             BucketName: !Ref MediaBucket
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:Query
+              Resource: !Sub "${PostsTable.Arn}/index/AuthorIndex"
       Events:
         CreatePost:
           Type: Api
@@ -229,6 +241,11 @@ Resources:
             TableName: !Ref PostsTable
         - DynamoDBReadPolicy:
             TableName: !Ref UsersTable
+        - Statement:
+            - Effect: Allow
+              Action:
+                - dynamodb:Query
+              Resource: !Sub "${PostsTable.Arn}/index/AuthorIndex"
       Events:
         GetTrending:
           Type: Api
