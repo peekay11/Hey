@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './ComposeModal.css'; // Reusing modal styles
 
 const EditProfileModal = ({ user, onClose }) => {
   const [name, setName] = useState(user?.name || '');
@@ -14,9 +13,38 @@ const EditProfileModal = ({ user, onClose }) => {
   };
 
   return (
-    <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={e => e.stopPropagation()}>
-        <div className="modal-header">
+    <div 
+      className="modal-overlay" 
+      onClick={onClose}
+      style={{
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        right: 0,
+        bottom: 0,
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        backdropFilter: 'blur(4px)',
+        zIndex: 9999,
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'center'
+      }}
+    >
+      <div 
+        className="modal-content" 
+        onClick={e => e.stopPropagation()}
+        style={{
+          width: '90%',
+          maxWidth: '600px',
+          backgroundColor: 'var(--card-bg)',
+          borderRadius: 'var(--radius-lg)',
+          boxShadow: '0 20px 40px rgba(0, 0, 0, 0.2)',
+          overflow: 'hidden',
+          display: 'flex',
+          flexDirection: 'column'
+        }}
+      >
+        <div className="modal-header" style={{ padding: '1.25rem', borderBottom: '1px solid var(--divider)', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
           <button 
             type="button" 
             className="icon-btn" 

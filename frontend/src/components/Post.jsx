@@ -30,6 +30,7 @@ const Post = ({
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [upvotes, setUpvotes] = useState(initialUpvotes);
   const [hasSaved, setHasSaved] = useState(false);
+  const [isFollowing, setIsFollowing] = useState(false);
   const [particles, setParticles] = useState([]); // Array of particle objects {id, icon, x, y}
   
   const triggerParticles = (iconType, color, count = 8) => {
@@ -171,8 +172,24 @@ const Post = ({
       </div>
       
       <div className="post-header">
-        <div className="post-author-info">
+        <div className="post-author-info" style={{ display: 'flex', alignItems: 'center', flexWrap: 'wrap', gap: '0.5rem' }}>
           <span className="post-author" onClick={() => navigate(`/user/${author}`)} style={{ cursor: 'pointer' }}>{author}</span>
+          {author !== 'Paseka Dev' && (
+            <button 
+              onClick={() => setIsFollowing(!isFollowing)}
+              style={{
+                background: 'transparent',
+                border: 'none',
+                color: isFollowing ? 'var(--text-muted)' : 'var(--primary-color)',
+                fontWeight: 700,
+                fontSize: '0.85rem',
+                cursor: 'pointer',
+                padding: 0
+              }}
+            >
+              {isFollowing ? 'Following' : 'Follow'}
+            </button>
+          )}
           <span className="post-timestamp">{timestamp} • {location}</span>
         </div>
         {author === 'Paseka Dev' && (
