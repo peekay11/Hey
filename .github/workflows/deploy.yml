@@ -1,0 +1,78 @@
+name: Deploy Hey App to AWS
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy-backend:
+    name: Deploy Backend (AWS SAM)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Setup AWS SAM CLI
+        uses: aws-actions/setup-sam@v2
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: af-south-1
+
+      - name: SAM Build and Deploy
+        working-directory: ./backend
+        run: |
+          sam build
+          sam deploy --no-confirm-changeset --no-fail-on-empty-changeset --stack-name hey-backend-stack --resolve-s3 --capabilities CAPABILITY_IAM CAPABILITY_NAMED_IAM
+
+  deploy-frontend:
+    name: Deploy Frontend (React to S3/CloudFront)
+    runs-on: ubuntu-latest
+    needs: deploy-backend # Wait for backend to finish so the APIs are up to date
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        working-directory: ./frontend
+        run: npm ci
+
+      - name: Build React App
+        working-directory: ./frontend
+        run: npm run build
+        env:
+          # If you want to automatically pull your CloudFormation outputs, you can inject them here
+          # For now, it uses your committed .env.local or standard .env file
+          VITE_AWS_REGION: af-south-1
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v2
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: af-south-1
+
+      - name: Sync files to S3
+        working-directory: ./frontend
+        # IMPORTANT: Replace 281682840875 with your actual AWS Account ID as seen in your previous command!
+        run: |
+          aws s3 sync dist/ s3://hey-frontend-281682840875-af-south-1 --delete
+
+      # (Optional) Invalidate CloudFront cache so changes show up instantly
+      # - name: Invalidate CloudFront Cache
+      #   run: |
+      #     aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUDFRONT_DISTRIBUTION_ID }} --paths "/*"
