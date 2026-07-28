@@ -37,6 +37,14 @@
   padding: var(--space-md) var(--space-md) 0 var(--space-md);
 }
 
+.feed-header h2 {
+  font-family: "Agbalumo", system-ui;
+  font-weight: 400;
+  font-size: 1.8rem;
+  margin-bottom: var(--space-md);
+  color: var(--text-main);
+}
+
 .search-bar {
   display: flex;
   background-color: var(--card-bg);

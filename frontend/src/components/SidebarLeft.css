@@ -64,9 +64,9 @@
   border-radius: 99px;
   background-color: var(--primary-color);
   color: #fff;
-  font-family: inherit;
-  font-size: 1.15rem;
-  font-weight: 700;
+  font-family: "Agbalumo", system-ui;
+  font-size: 1.25rem;
+  font-weight: 400;
   border: none;
   cursor: pointer;
 

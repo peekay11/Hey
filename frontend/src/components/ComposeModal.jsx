@@ -40,7 +40,7 @@ const ComposeModal = ({ onClose, onPostCreated }) => {
           >
             <span className="material-symbols-outlined" aria-hidden="true">close</span>
           </button>
-          <span style={{ fontWeight: 700, fontSize: '1.1rem' }}>Compose Post</span>
+          <span style={{ fontFamily: '"Agbalumo", system-ui', fontWeight: 400, fontSize: '1.5rem', color: 'var(--primary-color)' }}>Say Hey</span>
           <div style={{ width: '24px' }}></div> {/* spacer for centering */}
         </div>
         
