@@ -15,8 +15,35 @@ Globals:
         USERS_TABLE: !Ref UsersTable
         ALERTS_TABLE: !Ref AlertsTable
         MEDIA_BUCKET: !Ref MediaBucket
+        COGNITO_CLIENT_ID: !Ref HeyUserPoolClient
 
 Resources:
+  # ==========================================
+  # AUTHENTICATION (Cognito)
+  # ==========================================
+  HeyUserPool:
+    Type: AWS::Cognito::UserPool
+    Properties:
+      UserPoolName: HeyUsers
+      AutoVerifiedAttributes:
+        - email
+      Policies:
+        PasswordPolicy:
+          MinimumLength: 8
+          RequireUppercase: true
+          RequireLowercase: true
+          RequireNumbers: true
+
+  HeyUserPoolClient:
+    Type: AWS::Cognito::UserPoolClient
+    Properties:
+      ClientName: HeyWebClient
+      UserPoolId: !Ref HeyUserPool
+      GenerateSecret: false
+      ExplicitAuthFlows:
+        - ALLOW_USER_PASSWORD_AUTH
+        - ALLOW_REFRESH_TOKEN_AUTH
+
   # ==========================================
   # DATABASES (DynamoDB)
   # ==========================================
@@ -77,6 +104,28 @@ Resources:
   # ==========================================
   # API GATEWAY & LAMBDA FUNCTIONS
   # ==========================================
+  
+  # Auth Service (auth.py)
+  AuthFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: auth.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
+        - Statement:
+            - Effect: Allow
+              Action:
+                - cognito-idp:SignUp
+                - cognito-idp:InitiateAuth
+              Resource: !GetAtt HeyUserPool.Arn
+      Events:
+        AuthApi:
+          Type: Api
+          Properties:
+            Path: /auth/{action}
+            Method: post
   
   # Posts Service (posts.py)
   PostsFunction:
