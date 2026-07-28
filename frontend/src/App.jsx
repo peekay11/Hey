@@ -15,6 +15,7 @@ import SearchBar from './components/SearchBar';
 import ComposeModal from './components/ComposeModal';
 import { useFeed } from './hooks/useApi';
 
+import Auth from './pages/Auth';
 import { ApiService } from './services/api';
 
 // Extracted Feed Component to keep App clean
@@ -133,6 +134,7 @@ const HomeFeed = ({ search, setSearch, posts, loading, refetch }) => {
 
 function App() {
   const isMobile = useIsMobile(900);
+  const [currentUser, setCurrentUser] = useState(null);
   const [search, setSearch] = useState('');
   const [categoryFilter, setCategoryFilter] = useState('All');
   const [locationFilter, setLocationFilter] = useState('All');
@@ -140,6 +142,10 @@ function App() {
 
   // Architecture ready for millions of posts: fetch from API instead of filtering locally
   const { posts, loading, refetch } = useFeed(search, categoryFilter, locationFilter);
+
+  if (!currentUser) {
+    return <Auth onLogin={setCurrentUser} />;
+  }
 
   return (
     <div className="app-container">
