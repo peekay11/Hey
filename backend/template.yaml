@@ -73,8 +73,7 @@ Resources:
         CorsRules:
           - AllowedHeaders: ['*']
             AllowedMethods: [GET, PUT, POST, DELETE, HEAD]
-            AllowedOrigins: ['*'] # In production, restrict this to your CloudFront domain
-
+            AllowedOrigins: ['*'] # In production,  add cloudfront link 
   # ==========================================
   # API GATEWAY & LAMBDA FUNCTIONS
   # ==========================================

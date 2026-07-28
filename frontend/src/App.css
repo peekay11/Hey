@@ -8,8 +8,10 @@
 }
 
 .mobile-brand {
+  font-family: "Agbalumo", system-ui;
   font-size: 1.8rem;
-  font-weight: 900;
+  font-weight: 400;
+  font-style: normal;
   color: var(--primary-color);
   margin-bottom: var(--space-md);
   letter-spacing: -1px;
