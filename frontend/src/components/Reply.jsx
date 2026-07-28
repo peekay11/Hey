@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { playPopSound } from '../utils/sound';
 import './Reply.css';
 
@@ -12,6 +13,7 @@ const Reply = ({
   timestamp,
   isAuthor
 }) => {
+  const navigate = useNavigate();
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [upvotes, setUpvotes] = useState(initialUpvotes);
   const [isHelpful, setIsHelpful] = useState(initialIsHelpful);
@@ -34,13 +36,13 @@ const Reply = ({
 
   return (
     <div className={`reply-card ${isHelpful ? 'reply-helpful' : ''}`}>
-      <div className="reply-avatar-badge">
+      <div className="reply-avatar-badge" onClick={() => navigate(`/user/${author}`)} style={{ cursor: 'pointer' }}>
         <img src={avatar || `https://ui-avatars.com/api/?name=${author}&background=random`} alt={author} className="avatar-floating" />
       </div>
       
       <div className="reply-header">
         <div className="reply-author-info">
-          <span className="reply-author">{author}</span>
+          <span className="reply-author" onClick={() => navigate(`/user/${author}`)} style={{ cursor: 'pointer' }}>{author}</span>
           <span className="reply-timestamp">{timestamp}</span>
         </div>
         <button className="btn-icon-only" aria-label="More options">

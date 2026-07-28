@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import Reply from './Reply';
 import { playPopSound, playLikeSound, playRepostSound, playSaveSound } from '../utils/sound';
 import './Post.css';
@@ -25,6 +26,7 @@ const Post = ({
   onToggleReplies,
   onDelete
 }) => {
+  const navigate = useNavigate();
   const [hasUpvoted, setHasUpvoted] = useState(false);
   const [upvotes, setUpvotes] = useState(initialUpvotes);
   const [hasSaved, setHasSaved] = useState(false);
@@ -164,13 +166,13 @@ const Post = ({
 
   return (
     <div className={`card post ${boosted ? 'post-boosted' : ''}`}>
-      <div className="post-avatar-badge">
+      <div className="post-avatar-badge" onClick={() => navigate(`/user/${author}`)} style={{ cursor: 'pointer' }}>
         <img src={avatar || `https://ui-avatars.com/api/?name=${author}&background=random`} alt={author} className="avatar-floating" />
       </div>
       
       <div className="post-header">
         <div className="post-author-info">
-          <span className="post-author">{author}</span>
+          <span className="post-author" onClick={() => navigate(`/user/${author}`)} style={{ cursor: 'pointer' }}>{author}</span>
           <span className="post-timestamp">{timestamp} • {location}</span>
         </div>
         {author === 'Paseka Dev' && (

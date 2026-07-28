@@ -11,6 +11,7 @@ import Discover from './pages/Discover';
 import Alerts from './pages/Alerts';
 import Saved from './pages/Saved';
 import Profile from './pages/Profile';
+import UserProfile from './pages/UserProfile';
 import SearchBar from './components/SearchBar';
 import ComposeModal from './components/ComposeModal';
 import { useFeed } from './hooks/useApi';
@@ -157,6 +158,7 @@ function App() {
         <Route path="/alerts" element={<main className="main-feed"><Alerts /></main>} />
         <Route path="/saved" element={<main className="main-feed"><Saved /></main>} />
         <Route path="/profile" element={<main className="main-feed"><Profile onLogout={() => setCurrentUser(null)} /></main>} />
+        <Route path="/user/:username" element={<main className="main-feed"><UserProfile /></main>} />
       </Routes>
 
       <SidebarRight 
