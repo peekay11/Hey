@@ -1,0 +1,44 @@
+AWS ARCHITECTURE & SERVICES DESIGN
+Project: Hey (Social Media Web Application)
+Region Target: af-south-1 (Cape Town)
+
+As your architecture mentor, here is the complete blueprint of AWS services you will need to power the features of the "Hey" app. You can use this list to build your UML and Design Document.
+
+---
+
+1. Amazon S3 (Simple Storage Service)
+FOR WHAT: Object and Media Storage
+- Storing all user uploads (e.g., Profile picture avatars, images attached to posts).
+- Hosting the compiled production build of your React frontend (the contents of the /dist folder).
+
+2. Amazon CloudFront
+FOR WHAT: Content Delivery Network (CDN)
+- Wrapping around your S3 bucket to serve your React frontend and media files blazingly fast to users by caching them at edge locations.
+- Providing a free SSL/TLS certificate (HTTPS) so your app is secure.
+
+3. Amazon Cognito
+FOR WHAT: Authentication & Authorization
+- Handling user sign-ups, log-ins, and password resets securely.
+- Issuing JWT (JSON Web Tokens) to users when they log in, which your frontend will send with every API request to prove who is making the request.
+
+4. Amazon API Gateway
+FOR WHAT: REST API Routing
+- Acting as the "front door" for your backend. When the React app wants to fetch posts or save a profile, it makes an HTTP request to API Gateway.
+- API Gateway validates the Cognito JWT token, and if valid, passes the request to the correct AWS Lambda function.
+
+5. AWS Lambda
+FOR WHAT: Serverless Compute (Running your Python code)
+- Running the business logic inside posts.py, discover.py, profile.py, etc. 
+- Lambda wakes up, executes your Python code to talk to the database, returns the result, and goes back to sleep. You don't have to manage any servers.
+
+6. Amazon DynamoDB
+FOR WHAT: NoSQL Database
+- Storing structured app data that needs to be queried extremely fast.
+- Tables you will likely need:
+  - UsersTable: Bio, follower counts, following list.
+  - PostsTable: Post ID, author ID, text, timestamp, upvotes, S3 image URLs.
+  - AlertsTable: Notifications (who liked what, who followed who).
+
+---
+RECOMMENDED UML FLOW:
+React Frontend -> [HTTPS Request + JWT] -> API Gateway -> AWS Lambda (Python/Boto3) -> DynamoDB (Data) / S3 (Images)
