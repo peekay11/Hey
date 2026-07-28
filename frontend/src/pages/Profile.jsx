@@ -1,10 +1,12 @@
 import React, { useState } from 'react';
 import { useProfile } from '../hooks/useApi';
 import Post from '../components/Post';
+import EditProfileModal from '../components/EditProfileModal';
 
-const Profile = () => {
+const Profile = ({ onLogout }) => {
   const { user, posts, loading } = useProfile('Paseka Dev');
   const [activeTab, setActiveTab] = useState('Posts');
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
 
   if (loading) {
     return (
@@ -41,9 +43,22 @@ const Profile = () => {
               alt={user.name} 
               style={{ width: '120px', height: '120px', borderRadius: '50%', border: '4px solid var(--card-bg)', marginTop: '-70px', objectFit: 'cover', backgroundColor: '#fff' }} 
             />
-            <button style={{ backgroundColor: 'transparent', color: 'var(--text-main)', border: '1px solid var(--divider)', padding: '0.5rem 1rem', borderRadius: 'var(--radius-pill)', fontWeight: 700, cursor: 'pointer', transition: 'background-color 0.2s', marginTop: '10px' }} onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(0,0,0,0.05)'} onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}>
-              Edit Profile
-            </button>
+            <div style={{ display: 'flex', gap: '0.5rem', marginTop: '10px' }}>
+              <button 
+                onClick={() => setIsEditModalOpen(true)}
+                style={{ backgroundColor: 'transparent', color: 'var(--text-main)', border: '1px solid var(--divider)', padding: '0.5rem 1rem', borderRadius: 'var(--radius-pill)', fontWeight: 700, cursor: 'pointer', transition: 'background-color 0.2s' }} 
+                onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(0,0,0,0.05)'} 
+                onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}>
+                Edit Profile
+              </button>
+              <button 
+                onClick={onLogout}
+                style={{ backgroundColor: 'transparent', color: '#ff3333', border: '1px solid #ff3333', padding: '0.5rem 1rem', borderRadius: 'var(--radius-pill)', fontWeight: 700, cursor: 'pointer', transition: 'background-color 0.2s' }} 
+                onMouseEnter={(e) => e.target.style.backgroundColor = 'rgba(255,51,51,0.1)'} 
+                onMouseLeave={(e) => e.target.style.backgroundColor = 'transparent'}>
+                Logout
+              </button>
+            </div>
           </div>
           
           <div style={{ marginTop: '0.5rem' }}>
@@ -105,6 +120,13 @@ const Profile = () => {
           ))
         )}
       </div>
+
+      {isEditModalOpen && (
+        <EditProfileModal 
+          user={user} 
+          onClose={() => setIsEditModalOpen(false)} 
+        />
+      )}
     </div>
   );
 };

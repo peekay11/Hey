@@ -156,7 +156,7 @@ function App() {
         <Route path="/discover" element={<main className="main-feed"><Discover /></main>} />
         <Route path="/alerts" element={<main className="main-feed"><Alerts /></main>} />
         <Route path="/saved" element={<main className="main-feed"><Saved /></main>} />
-        <Route path="/profile" element={<main className="main-feed"><Profile /></main>} />
+        <Route path="/profile" element={<main className="main-feed"><Profile onLogout={() => setCurrentUser(null)} /></main>} />
       </Routes>
 
       <SidebarRight 
