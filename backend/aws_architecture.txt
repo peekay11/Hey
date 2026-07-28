@@ -1,44 +1,43 @@
-AWS ARCHITECTURE & SERVICES DESIGN
-Project: Hey (Social Media Web Application)
+AWS Infrastructure for my Hey App
 Region Target: af-south-1 (Cape Town)
 
-As your architecture mentor, here is the complete blueprint of AWS services you will need to power the features of the "Hey" app. You can use this list to build your UML and Design Document.
+Here is the complete blueprint of the AWS services I will use to power the features of my "Hey" social media web application. I am using this list to build my UML and Design Document.
 
 ---
 
 1. Amazon S3 (Simple Storage Service)
-FOR WHAT: Object and Media Storage
-- Storing all user uploads (e.g., Profile picture avatars, images attached to posts).
-- Hosting the compiled production build of your React frontend (the contents of the /dist folder).
+WHY I USE IT: Object and Media Storage
+- I will use S3 to store all user uploads (like profile picture avatars and images attached to posts).
+- I will also use it to host the compiled production build of my React frontend (the contents of my /dist folder).
 
 2. Amazon CloudFront
-FOR WHAT: Content Delivery Network (CDN)
-- Wrapping around your S3 bucket to serve your React frontend and media files blazingly fast to users by caching them at edge locations.
-- Providing a free SSL/TLS certificate (HTTPS) so your app is secure.
+WHY I USE IT: Content Delivery Network (CDN)
+- I will wrap CloudFront around my S3 bucket to serve my React frontend and media files blazingly fast to users by caching them at edge locations.
+- It will also provide a free SSL/TLS certificate (HTTPS) so my app is fully secure.
 
 3. Amazon Cognito
-FOR WHAT: Authentication & Authorization
-- Handling user sign-ups, log-ins, and password resets securely.
-- Issuing JWT (JSON Web Tokens) to users when they log in, which your frontend will send with every API request to prove who is making the request.
+WHY I USE IT: Authentication & Authorization
+- I will use Cognito to handle user sign-ups, log-ins, and password resets securely.
+- It will issue JWT (JSON Web Tokens) to users when they log in, which my frontend will send with every API request to prove who is making the request.
 
 4. Amazon API Gateway
-FOR WHAT: REST API Routing
-- Acting as the "front door" for your backend. When the React app wants to fetch posts or save a profile, it makes an HTTP request to API Gateway.
-- API Gateway validates the Cognito JWT token, and if valid, passes the request to the correct AWS Lambda function.
+WHY I USE IT: REST API Routing
+- This acts as the "front door" for my backend. When my React app wants to fetch posts or save a profile, it makes an HTTP request to API Gateway.
+- API Gateway will validate my Cognito JWT token, and if valid, it will pass the request to the correct AWS Lambda function.
 
 5. AWS Lambda
-FOR WHAT: Serverless Compute (Running your Python code)
-- Running the business logic inside posts.py, discover.py, profile.py, etc. 
-- Lambda wakes up, executes your Python code to talk to the database, returns the result, and goes back to sleep. You don't have to manage any servers.
+WHY I USE IT: Serverless Compute (Running my Python code)
+- I will use Lambda to run the business logic inside my posts.py, discover.py, profile.py scripts. 
+- Lambda wakes up, executes my Python/Boto3 code to talk to the database, returns the result, and goes back to sleep. This means I don't have to manage or pay for any idle servers.
 
 6. Amazon DynamoDB
-FOR WHAT: NoSQL Database
-- Storing structured app data that needs to be queried extremely fast.
-- Tables you will likely need:
+WHY I USE IT: NoSQL Database
+- I will use DynamoDB to store structured app data because it is infinitely scalable and incredibly fast.
+- Tables I am planning to create:
   - UsersTable: Bio, follower counts, following list.
   - PostsTable: Post ID, author ID, text, timestamp, upvotes, S3 image URLs.
   - AlertsTable: Notifications (who liked what, who followed who).
 
 ---
-RECOMMENDED UML FLOW:
+MY RECOMMENDED UML FLOW:
 React Frontend -> [HTTPS Request + JWT] -> API Gateway -> AWS Lambda (Python/Boto3) -> DynamoDB (Data) / S3 (Images)
