@@ -66,9 +66,9 @@ const Auth = ({ onLogin }) => {
 
         {/* Right Side: Gradient Banner */}
         <div className="auth-right">
-          <h2 className="auth-right-title">We are more than just a social network</h2>
+          <h2 className="auth-right-title">Connecting communities with a Hey</h2>
           <p className="auth-right-text">
-            Join a vibrant community of creators, thinkers, and explorers. Share your moments, discover local trends in Soweto and Braamfontein, and connect with people who matter.
+            Join a vibrant global community of creators, thinkers, and explorers. Share your moments, discover new conversations, and connect with the people who matter most to you.
           </p>
         </div>
       </div>
