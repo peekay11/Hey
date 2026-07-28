@@ -1,0 +1,179 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Hey Social Media App Backend
+  SAM Template for AWS Serverless Architecture (af-south-1)
+
+Globals:
+  Function:
+    Timeout: 10
+    MemorySize: 256
+    Runtime: python3.11
+    Environment:
+      Variables:
+        POSTS_TABLE: !Ref PostsTable
+        USERS_TABLE: !Ref UsersTable
+        ALERTS_TABLE: !Ref AlertsTable
+        MEDIA_BUCKET: !Ref MediaBucket
+
+Resources:
+  # ==========================================
+  # DATABASES (DynamoDB)
+  # ==========================================
+  PostsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Hey-Posts
+      AttributeDefinitions:
+        - AttributeName: post_id
+          AttributeType: S
+        - AttributeName: author_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: post_id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  UsersTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Hey-Users
+      AttributeDefinitions:
+        - AttributeName: user_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: user_id
+          KeyType: HASH
+      BillingMode: PAY_PER_REQUEST
+
+  AlertsTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      TableName: Hey-Alerts
+      AttributeDefinitions:
+        - AttributeName: alert_id
+          AttributeType: S
+        - AttributeName: user_id
+          AttributeType: S
+      KeySchema:
+        - AttributeName: user_id
+          KeyType: HASH
+        - AttributeName: alert_id
+          KeyType: RANGE
+      BillingMode: PAY_PER_REQUEST
+
+  # ==========================================
+  # STORAGE (S3)
+  # ==========================================
+  MediaBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketName: !Sub "hey-media-bucket-${AWS::AccountId}-${AWS::Region}"
+      CorsConfiguration:
+        CorsRules:
+          - AllowedHeaders: ['*']
+            AllowedMethods: [GET, PUT, POST, DELETE, HEAD]
+            AllowedOrigins: ['*'] # In production, restrict this to your CloudFront domain
+
+  # ==========================================
+  # API GATEWAY & LAMBDA FUNCTIONS
+  # ==========================================
+  
+  # Posts Service (posts.py)
+  PostsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: posts.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref PostsTable
+        - S3CrudPolicy:
+            BucketName: !Ref MediaBucket
+      Events:
+        CreatePost:
+          Type: Api
+          Properties:
+            Path: /posts
+            Method: post
+        GetFeed:
+          Type: Api
+          Properties:
+            Path: /posts/feed
+            Method: get
+
+  # Profile Service (profile.py)
+  ProfileFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: profile.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
+      Events:
+        GetProfile:
+          Type: Api
+          Properties:
+            Path: /profile/{user_id}
+            Method: get
+        UpdateProfile:
+          Type: Api
+          Properties:
+            Path: /profile/{user_id}
+            Method: put
+
+  # Discover Service (discover.py)
+  DiscoverFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: discover.handler
+      Policies:
+        - DynamoDBReadPolicy:
+            TableName: !Ref PostsTable
+        - DynamoDBReadPolicy:
+            TableName: !Ref UsersTable
+      Events:
+        GetTrending:
+          Type: Api
+          Properties:
+            Path: /discover/trending
+            Method: get
+
+  # Saved Service (saved.py)
+  SavedFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: saved.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref UsersTable
+      Events:
+        GetSavedPosts:
+          Type: Api
+          Properties:
+            Path: /saved/{user_id}
+            Method: get
+
+  # Alerts Service (alerts.py)
+  AlertsFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: ./
+      Handler: alerts.handler
+      Policies:
+        - DynamoDBCrudPolicy:
+            TableName: !Ref AlertsTable
+      Events:
+        GetAlerts:
+          Type: Api
+          Properties:
+            Path: /alerts/{user_id}
+            Method: get
+
+Outputs:
+  HeyApiEndpoint:
+    Description: "API Gateway endpoint URL for Prod stage"
+    Value: !Sub "https://${ServerlessRestApi}.execute-api.${AWS::Region}.amazonaws.com/Prod/"
